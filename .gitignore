@@ -19,3 +19,6 @@
 
 # Add $HOME/.zprofile
 !/.zprofile
+
+# Add $HOME/README.md
+!/README.md
