@@ -1,0 +1,21 @@
+# Ignore all files in $HOME by default
+/*
+/.*
+
+# Add $HOME/.config directories
+!/.config
+/.config/*
+!/.config/nvim
+
+# Add $HOME/.dotfiles
+!/.dotfiles
+
+# Add $HOME/.gitconfig and $HOME/.gitignore
+!/.gitconfig
+!/.gitignore
+
+# Add $HOME/.tmux.conf
+!/.tmux.conf
+
+# Add $HOME/.zprofile
+!/.zprofile
