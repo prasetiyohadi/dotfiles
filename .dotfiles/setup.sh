@@ -15,6 +15,11 @@ OMZ_PATH=~/.oh-my-zsh
 TPM_PATH=~/.tmux/plugins/tpm
 ZSHRC=~/.zshrc
 
+# install neovim in macos
+install_nvim_darwin() {
+    brew install neovim
+}
+
 # install neovim in linux
 install_nvim_linux() {
     if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
@@ -36,6 +41,7 @@ install_nvim_linux() {
     elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
         # install neovim
         sudo dnf install --assumeyes neovim
+        sudo alternatives --install /usr/bin/vi vi /usr/bin/nvim 900
         sudo alternatives --install /usr/bin/vim vim /usr/bin/nvim 900
     fi
 }
@@ -117,6 +123,12 @@ setup_tmux() {
     setup_tmux_plugin_manager
 }
 
+# install tmux and powerline in macos
+install_tmux_darwin() {
+    brew install python tmux
+    pip3 install powerline-status psutil
+}
+
 # install tmux and powerline in linux
 install_tmux_linux() {
     if [ -f /etc/debian_version ]; then
@@ -147,6 +159,18 @@ setup_zshrc() {
     popd
 }
 
+# installation for macos
+setup_darwin() {
+    for APP in $APPS; do
+        echo "This script will install $APP using brew."
+        if [ ! "$HAS_BREW" == "true" ]; then
+            echo "Homebrew must be installed!"
+        else
+            "install_${APP}_darwin"
+        fi
+    done
+}
+
 # installation for linux
 setup_linux() {
     for APP in $APPS; do
@@ -166,19 +190,6 @@ setup_linux() {
     done
 }
 
-# installation for macos
-setup_darwin() {
-    for APP in $APPS; do
-        echo "This script will install $APP using brew."
-        if [ ! "$HAS_BREW" == "true" ]; then
-            echo "Homebrew must be installed!"
-        else
-            brew install python "$APP"
-            pip3 install powerline-status psutil
-        fi
-    done
-}
-
 # main function
 main() {
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
@@ -187,9 +198,9 @@ main() {
         [ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
         setup_linux
     fi
-    #setup_omz
-    #setup_tmux
-    #setup_zshrc
+    setup_omz
+    setup_tmux
+    setup_zshrc
 }
 
 main
