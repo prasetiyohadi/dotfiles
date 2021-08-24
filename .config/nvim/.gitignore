@@ -1,1 +1,2 @@
-plugin/
+# Ignore auto-generated plugin directory
+/plugin
