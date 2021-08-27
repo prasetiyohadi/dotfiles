@@ -15,7 +15,6 @@ return require('packer').startup(function()
   -- Simple plugins can be specified as strings
   --use '9mm/vim-closer'
   --use 'ggandor/lightspeed.nvim'
-  --use 'voldikss/vim-floaterm'
   --use 'kevinoid/vim-jsonc'
   --use 'maxmellon/vim-jsx-pretty'
   --use 'preservim/vim-pencil'
@@ -123,6 +122,9 @@ return require('packer').startup(function()
   }
   use {
     'hrsh7th/nvim-compe', config = conf('compe')
+  }
+  use {
+    'voldikss/vim-floaterm', config = conf('floaterm')
   }
 
   -- You can specify multiple plugins in a single call
