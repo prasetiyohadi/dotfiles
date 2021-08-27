@@ -1,3 +1,5 @@
 [user]
 	email = pras@deuterion.net
 	name = Prasetiyo Hadi Purwoko
+[include]
+	path = ~/.custom.gitconfig
