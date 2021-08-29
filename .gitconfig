@@ -1,3 +1,5 @@
+[pull]
+	rebase = false
 [user]
 	email = pras@deuterion.net
 	name = Prasetiyo Hadi Purwoko
