@@ -22,7 +22,7 @@ install_nvim_darwin() {
 
 # install neovim in linux
 install_nvim_linux() {
-    if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
+    if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
         # remove vim
         sudo apt-get purge -y vim-tiny vim-runtime vim-common
         # install neovim v0.5.0
@@ -146,7 +146,7 @@ setup_zshrc() {
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
         cp zshrc.macos $ZSHRC
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
-        if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
+        if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
             cp zshrc.debian $ZSHRC
         elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
             cp zshrc.redhat $ZSHRC
