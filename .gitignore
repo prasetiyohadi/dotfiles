@@ -10,6 +10,9 @@
 # Add $HOME/.dotfiles
 !/.dotfiles
 
+# Add $HOME/.fzf.zsh
+!/.fzf.zsh
+
 # Add $HOME/.gitconfig and $HOME/.gitignore
 !/.gitconfig
 !/.gitignore

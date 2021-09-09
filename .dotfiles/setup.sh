@@ -10,10 +10,25 @@ OS_TYPE_LINUX_AMD64=linux-gnu
 OS_TYPE_LINUX_ARM=linux-gnueabihf
 HAS_BREW="$(type "brew" &> /dev/null && echo true || echo false)"
 HAS_GIT="$(type "git" &> /dev/null && echo true || echo false)"
-APPS="nvim tmux"
+APPS="fzf nvim tmux"
 OMZ_PATH=~/.oh-my-zsh
 TPM_PATH=~/.tmux/plugins/tpm
 ZSHRC=~/.zshrc
+
+# install fzf in macos
+install_fzf_darwin() {
+    brew install fzf
+}
+
+# install fzf in linux
+install_fzf_linux() {
+    if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
+        sudo apt-get update
+        sudo apt-get install -y fzf
+    elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
+        sudo dnf install -y fzf
+    fi
+}
 
 # install neovim in macos
 install_nvim_darwin() {
