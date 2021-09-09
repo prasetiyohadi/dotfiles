@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+VERSION=main
+
 init() {
-    cd
-    git init
-    git remote add origin https://github.com/prasetiyohadi/dotfiles.git
-    git pull --ff-only origin main
-    git branch -m main
-    git branch --set-upstream-to=origin/main main
+    TEMP=$(mktemp -d) && cd $TEMP
+    wget https://github.com/prasetiyohadi/dotfiles/archive/refs/heads/$VERSION.zip
+    unzip -q $VERSION.zip
+    cp -pr dotfiles-$VERSION/.[^.]* ~/
+    cd && rm -fr $TEMP
 }
 
 setup() {
