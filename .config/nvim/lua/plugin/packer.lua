@@ -35,7 +35,6 @@ return require('packer').startup(function()
   use 'jiangmiao/auto-pairs'
   use 'hashivim/vim-terraform'
   use 'hrsh7th/vim-vsnip'
-  use 'hrsh7th/vim-vsnip-integ'
   use 'cstrap/python-snippets'
   use 'ylcnfrht/vscode-python-snippet-pack'
   use 'xabikos/vscode-javascript'
