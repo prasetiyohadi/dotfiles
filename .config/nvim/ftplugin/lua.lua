@@ -1,8 +1,11 @@
 local b = vim.b
 local execute = vim.api.nvim_command
 
-b['ale_fixers'] = {'stylua'}
-b['ale_linters'] = {'luacheck'}
+b["ale_fixers"] = { "stylua" }
+b["ale_linters"] = { "luacheck" }
 
-execute('autocmd FileType lua set tabstop=2|set softtabstop=2|set shiftwidth=2 expandtab')
-if b.expandtab then b.tabstop = 2 end
+execute("autocmd FileType lua set tabstop=4|set softtabstop=4|set shiftwidth=2 noexpandtab")
+
+if b.expandtab then
+	b.tabstop = 4
+end

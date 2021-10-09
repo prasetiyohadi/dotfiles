@@ -22,29 +22,33 @@ local mode_map = {
 
 local function mode()
 	local m = vim.api.nvim_get_mode().mode
-	if mode_map[m] == nil then return m end
+	if mode_map[m] == nil then
+		return m
+	end
 	return mode_map[m]
 end
 
 vim.api.nvim_exec(
-[[
+	[[
   hi PrimaryBlock   ctermfg=06 ctermbg=00
   hi SecondaryBlock ctermfg=08 ctermbg=00
   hi Blanks   ctermfg=07 ctermbg=00
-]], false)
+]],
+	false
+)
 
 local stl = {
-  '%#PrimaryBlock#',
-  mode(),
-  '%#SecondaryBlock#',
-  '%#Blanks#',
-  '%f',
-  '%m',
-  '%=',
-  '%#SecondaryBlock#',
-  '%l,%c ',
-  '%#PrimaryBlock#',
-  '%{&filetype}',
+	"%#PrimaryBlock#",
+	mode(),
+	"%#SecondaryBlock#",
+	"%#Blanks#",
+	"%f",
+	"%m",
+	"%=",
+	"%#SecondaryBlock#",
+	"%l,%c ",
+	"%#PrimaryBlock#",
+	"%{&filetype}",
 }
 
 vim.o.statusline = table.concat(stl)
