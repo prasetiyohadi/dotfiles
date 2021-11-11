@@ -72,7 +72,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Bat
-command -v bat > /dev/null && alias cat='bat -pp'
+command -v batcat > /dev/null && alias cat='batcat -pp'
 
 # Clipboard access
 alias pbcopy='xsel --clipboard --input'
@@ -93,6 +93,9 @@ NO_PROXY_SRC='"localhost,127.0.0.1"'
 alias proxy_up='export ftp_proxy=$PROXY_SRC http_proxy=$PROXY_SRC https_proxy=$PROXY_SRC no_proxy=$NO_PROXY_SRC'
 alias proxy_down='unset ftp_proxy http_proxy https_proxy no_proxy'
 
+# Tidy-viewer
+alias tv='tidy-viewer'
+
 # Virtualenv
 alias python_up='[ -s ~/python/bin/activate ] && source ~/python/bin/activate'
 alias python_down='deactivate'
@@ -104,6 +107,18 @@ alias '?'='which'
 
 # Ansible
 export ANSIBLE_NOCOWS=1
+
+# asdf
+if [ -d "${HOME}/.asdf" ]; then
+    source "${HOME}/.asdf/asdf.sh"
+    # append completions to fpath
+    fpath=(${ASDF_DIR}/completions $fpath)
+    # initialise completions with ZSH's compinit
+    autoload -Uz compinit && compinit
+fi
+
+# Azure
+[[ -d "${HOME}/.local/lib/azure-cli" ]] && source "${HOME}/.local/lib/azure-cli/az.completion"
 
 # Bitbucket
 export BB=~/projects/src/bitbucket.org
@@ -134,6 +149,9 @@ if [ $(command -v rg) ] && [ $(command -v bat) ]; then
     export FZF_DEFAULT_OPTS="--height 50% -1 --layout=reverse-list --multi --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
 fi
 
+# Gitconfig
+export REVIEW_BASE=origin/main
+
 # Github
 export GH=~/projects/src/github.com
 
@@ -155,7 +173,7 @@ fi
 
 # GPG
 if [[ ! "$(echo $OSTYPE | tr -d '[:digit:][:punct:]')" == "darwin" ]]; then
-    [[ ! -n "${GPG_TTY+1}" ]] && export GPG_TTY=$(tty)
+    export GPG_TTY=$(tty)
     [[ ! -n "${SSH_AUTH_SOCK+1}" ]] && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 fi
 
@@ -249,13 +267,6 @@ if [ -s ~/bin/terraform ]; then
 fi
 
 # Tmux
-# Have tmux respect active venv when splitting panes
-if [[ -n "${VIRTUAL_ENV+1}" ]]; then
-    source $VIRTUAL_ENV/bin/activate
-fi
-if [[ -n "${TMUX+1}" && -n "${VIRTUAL_ENV+1}" ]]; then
-    tmux set-environment VIRTUAL_ENV $VIRTUAL_ENV
-fi
 if [[ -n "${TMUX+1}" && -n "${SSH_AUTH_SOCK+1}" ]]; then
     tmux set-environment SSH_AUTH_SOCK $SSH_AUTH_SOCK
 fi
