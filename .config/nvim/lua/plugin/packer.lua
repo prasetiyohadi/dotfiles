@@ -22,7 +22,7 @@ return require("packer").startup(function()
 	--use 'dhruvasagar/vim-table-mode'
 	--use 'mg979/vim-visual-multi'
 	--use 'TaDaa/vimade'
-	--use 'tpope/vim-commentary'
+	use 'tpope/vim-commentary'
 	--use 'tpope/vim-fugitive'
 	--use 'tpope/vim-obsession'
 	--use 'ryanoasis/vim-devicons'
@@ -43,6 +43,7 @@ return require("packer").startup(function()
 	use("sbdchd/neoformat")
 	use("glepnir/lspsaga.nvim")
 	use("ray-x/lsp_signature.nvim")
+	-- use("github/copilot.vim")
 
 	-- Lazy loading:
 	-- Load on specific commands
