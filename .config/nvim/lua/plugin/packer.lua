@@ -13,25 +13,25 @@ return require("packer").startup(function()
 	use("wbthomason/packer.nvim")
 
 	-- Simple plugins can be specified as strings
-	--use '9mm/vim-closer'
-	--use 'ggandor/lightspeed.nvim'
-	--use 'kevinoid/vim-jsonc'
-	--use 'maxmellon/vim-jsx-pretty'
-	--use 'preservim/vim-pencil'
-	--use 'tsandall/vim-rego'
-	--use 'dhruvasagar/vim-table-mode'
-	--use 'mg979/vim-visual-multi'
-	--use 'TaDaa/vimade'
-	use 'tpope/vim-commentary'
-	--use 'tpope/vim-fugitive'
-	--use 'tpope/vim-obsession'
-	--use 'ryanoasis/vim-devicons'
-	--use 'airblade/vim-gitgutter'
-	--use 'JuliaEditorSupport/julia-vim'
-	--use 'kdheepak/JuliaFormatter.vim'
+	-- use("9mm/vim-closer")
+	-- use("ggandor/lightspeed.nvim")
+	-- use("kevinoid/vim-jsonc")
+	-- use("maxmellon/vim-jsx-pretty")
+	-- use("preservim/vim-pencil")
+	-- use("tsandall/vim-rego")
+	-- use("dhruvasagar/vim-table-mode")
+	-- use("mg979/vim-visual-multi")
+	-- use("TaDaa/vimade")
+	use("tpope/vim-commentary")
+	-- use("tpope/vim-fugitive")
+	-- use("tpope/vim-obsession")
+	-- use("ryanoasis/vim-devicons")
+	-- use("airblade/vim-gitgutter")
+	-- use("JuliaEditorSupport/julia-vim")
+	-- use("kdheepak/JuliaFormatter.vim")
 	use("camspiers/lens.vim")
-	--use 'preservim/nerdcommenter'
-	--use 'easymotion/vim-easymotion'
+	-- use("preservim/nerdcommenter")
+	-- use("easymotion/vim-easymotion")
 	use("jiangmiao/auto-pairs")
 	use("hashivim/vim-terraform")
 	use("hrsh7th/vim-vsnip")
@@ -87,16 +87,16 @@ return require("packer").startup(function()
 		config = conf("telescope"),
 		requires = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", run = "make" } },
 	})
-	--use {
-	--  'jistr/vim-nerdtree-tabs',
-	--  config = conf('nerdtree'),
-	--  requires = 'scrooloose/nerdtree'
-	--}
-	--use {
-	--  'shougo/deoplete-lsp',
-	--  opt = true,
-	--  requires = {{'shougo/deoplete.nvim', config = conf('deoplete'), opt = true, run = ':UpdateRemotePlugins'},}
-	--}
+	-- use({
+	-- 	"jistr/vim-nerdtree-tabs",
+	-- 	config = conf("nerdtree"),
+	-- 	requires = "scrooloose/nerdtree",
+	-- })
+	-- use({
+	-- 	"shougo/deoplete-lsp",
+	-- 	opt = true,
+	-- 	requires = { { "shougo/deoplete.nvim", config = conf("deoplete"), opt = true, run = ":UpdateRemotePlugins" } },
+	-- })
 
 	-- You can specify rocks in isolation
 	use_rocks("luacheck")
@@ -114,14 +114,18 @@ return require("packer").startup(function()
 	use({ "fatih/vim-go", run = ":GoInstallBinaries" })
 
 	-- Post-install/update hook with call of vimscript function with argument
-	--use {'junegunn/fzf.vim', requires = {'junegunn/fzf', run = function() vim.fn['fzf#install']() end}}
+	-- use({ "junegunn/fzf.vim", requires = {
+	-- 	"junegunn/fzf",
+	-- 	run = function()
+	-- 		vim.fn["fzf#install"]()
+	-- 	end,
+	-- } })
 	use({
 		"ojroques/nvim-lspfuzzy",
 		run = function()
 			require("lspfuzzy").setup()
 		end,
 	})
-	--use {'windwp/nvim-autopairs', run = function() require('nvim-autopairs').setup() end}
 	use({ "morhetz/gruvbox", config = conf("gruvbox") })
 	use({ "Yggdroot/indentLine", config = conf("indentLine") })
 	use({ "pedrohdz/vim-yaml-folds", config = conf("vim-yaml-folds") })
@@ -138,10 +142,10 @@ return require("packer").startup(function()
 	-- Use dependency and run lua function after load
 	use({
 		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("gitsigns").setup()
-		end,
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = conf("gitsigns"),
 	})
 	use({
 		"neovim/nvim-lspconfig",
@@ -163,5 +167,5 @@ return require("packer").startup(function()
 	})
 
 	-- You can alias plugin names
-	--use {'dracula/vim', as = 'dracula'}
+	-- use({ "dracula/vim", as = "dracula" })
 end)

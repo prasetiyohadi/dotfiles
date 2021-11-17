@@ -42,7 +42,7 @@ install_nvim_linux() {
         sudo apt-get purge -y vim-tiny vim-runtime vim-common
         # install neovim v0.5.0
         SRC=nvim.appimage
-        VER=0.5.0
+        VER=0.5.1
         URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
         wget -O /tmp/$SRC $URL
         wget -O /tmp/$SRC.sha256sum $URL.sha256sum
@@ -203,6 +203,18 @@ setup_linux() {
             "install_${APP}_linux"
         fi
     done
+}
+
+# asdf
+python_deps() {
+    # debian based
+    sudo apt-get update && sudo apt-get install make build-essential libssl-dev zlib1g-dev \
+        libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+    # fedora 22 and above
+    sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
+    # ueberzug
+    sudo dnf install libXext-devel
 }
 
 # main function
