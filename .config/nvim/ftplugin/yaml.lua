@@ -6,7 +6,6 @@ b["ale_linters"] = { "yamllint" }
 
 execute([[
   augroup vimrc-yaml
-    autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    | setlocal expandtab
+    autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
   augroup END
 ]])
