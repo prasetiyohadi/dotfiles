@@ -8,12 +8,35 @@ OS_TYPE=$(echo "$OS" | tr -d ".[:digit:]")
 OS_TYPE_DARWIN=darwin
 OS_TYPE_LINUX_AMD64=linux-gnu
 OS_TYPE_LINUX_ARM=linux-gnueabihf
-HAS_BREW="$(type "brew" &> /dev/null && echo true || echo false)"
-HAS_GIT="$(type "git" &> /dev/null && echo true || echo false)"
+HAS_BREW="$(type "brew" &>/dev/null && echo true || echo false)"
+HAS_GIT="$(type "git" &>/dev/null && echo true || echo false)"
 APPS="fzf nvim tmux"
 OMZ_PATH=~/.oh-my-zsh
 TPM_PATH=~/.tmux/plugins/tpm
 ZSHRC=~/.zshrc
+
+# setup asdf
+setup_asdf() {
+    if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
+        echo "Add ASDF prerequisites for macos"
+    elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
+        if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
+            # debian based
+            sudo apt-get update
+            sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+                libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+                libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
+                libffi-dev liblzma-dev
+        elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
+            # fedora 22 and above
+            sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
+                readline-devel sqlite sqlite-devel openssl-devel tk-devel \
+                libffi-devel xz-devel
+            # ueberzug
+            sudo dnf install -y libXext-devel
+        fi
+    fi
+}
 
 # install fzf in macos
 install_fzf_darwin() {
@@ -30,6 +53,13 @@ install_fzf_linux() {
     fi
 }
 
+# setup fzf configuration
+setup_fzf() {
+    pushd "$(dirname "$0")"
+    ln -sf $(pwd)/zsh/fzf.zsh $HOME/.fzf.zsh
+    popd
+}
+
 # install neovim in macos
 install_nvim_darwin() {
     brew install neovim
@@ -42,11 +72,11 @@ install_nvim_linux() {
         sudo apt-get purge -y vim-tiny vim-runtime vim-common
         # install neovim v0.5.0
         SRC=nvim.appimage
-        VER=0.5.1
+        VER=0.6.0
         URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
         wget -O /tmp/$SRC $URL
         wget -O /tmp/$SRC.sha256sum $URL.sha256sum
-        echo "$(awk '{print $1}' /tmp/$SRC.sha256sum)" /tmp/$SRC > /tmp/$SRC.sum
+        echo "$(awk '{print $1}' /tmp/$SRC.sha256sum)" /tmp/$SRC >/tmp/$SRC.sum
         sha256sum -c /tmp/$SRC.sum
         chmod u+x /tmp/$SRC
         sudo install -m 755 /tmp/$SRC /usr/bin/nvim
@@ -59,6 +89,13 @@ install_nvim_linux() {
         sudo alternatives --install /usr/bin/vi vi /usr/bin/nvim 900
         sudo alternatives --install /usr/bin/vim vim /usr/bin/nvim 900
     fi
+}
+
+# setup neovim configuration
+setup_nvim() {
+    pushd "$(dirname "$0")"
+    ln -sf $(pwd)/config/nvim $HOME/.config/nvim
+    popd
 }
 
 # install oh-my-zsh
@@ -97,7 +134,7 @@ install_omz_plugin() {
 # install oh-my-zsh custom themes
 install_omz_theme() {
     pushd "$(dirname "$0")"
-    cp catalyst.zsh-theme $OMZ_PATH/custom/themes/catalyst.zsh-theme
+    ln -sf $(pwd)/zsh/catalyst.zsh-theme $OMZ_PATH/custom/themes/catalyst.zsh-theme
     popd
 }
 
@@ -158,17 +195,18 @@ install_tmux_linux() {
 # setup .zshrc
 setup_zshrc() {
     pushd "$(dirname "$0")"
+    ln -sf $(pwd)/zsh/zprofile $HOME/.zprofile
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
-        cp zshrc.macos $ZSHRC
+        ln -sf $(pwd)/zsh/zshrc.macos $ZSHRC
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
-            cp zshrc.debian $ZSHRC
+            ln -sf $(pwd)/zsh/zshrc.debian $ZSHRC
         elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
-            cp zshrc.redhat $ZSHRC
+            ln -sf $(pwd)/zsh/zshrc.redhat $ZSHRC
         fi
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
-            cp zshrc.raspbian $ZSHRC
+            ln -sf $(pwd)/zsh/zshrc.raspbian $ZSHRC
         fi
     fi
     popd
@@ -190,7 +228,7 @@ setup_darwin() {
 setup_linux() {
     for APP in $APPS; do
         echo "This script will install $APP."
-        HAS_APP="$(type "$APP" &> /dev/null && echo true || echo false)"
+        HAS_APP="$(type "$APP" &>/dev/null && echo true || echo false)"
         if [ "$HAS_APP" == "true" ]; then
             read -p "$APP already exists. Replace[yn]? " -n 1 -r
             echo
@@ -205,26 +243,17 @@ setup_linux() {
     done
 }
 
-# asdf
-python_deps() {
-    # debian based
-    sudo apt-get update && sudo apt-get install make build-essential libssl-dev zlib1g-dev \
-        libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-    # fedora 22 and above
-    sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
-    # ueberzug
-    sudo dnf install libXext-devel
-}
-
 # main function
 main() {
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
         setup_darwin
-    elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ] || \
+    elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ] ||
         [ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
         setup_linux
     fi
+    setup_asdf
+    setup_fzf
+    setup_nvim
     setup_omz
     setup_tmux
     setup_zshrc

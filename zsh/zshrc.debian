@@ -72,7 +72,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Bat
-command -v batcat > /dev/null && alias cat='batcat -pp'
+command -v batcat >/dev/null && alias cat='batcat -pp'
 
 # Clipboard access
 alias pbcopy='xsel --clipboard --input'
@@ -131,7 +131,7 @@ if [ -f ~/.deno/bin/deno ]; then
     export DENO_INSTALL=~/.deno
     export PATH="$PATH:$DENO_INSTALL/bin"
     mkdir -p ~/.oh-my-zsh/custom/plugins/deno
-    deno completions zsh > ~/.oh-my-zsh/custom/plugins/deno/_deno
+    deno completions zsh >~/.oh-my-zsh/custom/plugins/deno/_deno
 fi
 
 # Editor
@@ -144,7 +144,7 @@ export VISUAL=vim
 # FZF mappings and options
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh || true
 # Replace default find command with ripgrep
-command -v rg > /dev/null && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+command -v rg >/dev/null && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 if [ $(command -v rg) ] && [ $(command -v bat) ]; then
     export FZF_DEFAULT_OPTS="--height 50% -1 --layout=reverse-list --multi --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300'"
 fi
@@ -198,7 +198,7 @@ fi
 [[ -d "${HOME}/.krew/bin" ]] && export PATH="${PATH}:${HOME}/.krew/bin"
 
 # Kubernetes
-command -v kubectl > /dev/null && source <(kubectl completion zsh) || true
+command -v kubectl >/dev/null && source <(kubectl completion zsh) || true
 
 # Language
 # You may need to manually set your language environment
@@ -221,7 +221,13 @@ fi
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # Nix: Direnv
-command -v direnv > /dev/null && eval "$(direnv hook zsh)"
+# Hook direnv into your shell.
+if [[ $(command -v asdf >/dev/null) ]]; then
+    command -v direnv >/dev/null && eval "$(asdf direnv hook zsh)"
+    direnv() { asdf exec direnv "$@"; }
+else
+    command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+fi
 
 # NVM
 if [ -s ~/.nvm/nvm.sh ]; then
@@ -258,7 +264,7 @@ fi
 # Starship
 # Run the following command to enable starship
 # echo "export ENABLE_STARSHIP=yes" >> ~/.zprofile
-[ -n "$ENABLE_STARSHIP" ] && which starship > /dev/null && eval "$(starship init zsh)"
+[ -n "$ENABLE_STARSHIP" ] && which starship >/dev/null && eval "$(starship init zsh)"
 
 # Terraform
 if [ -s ~/bin/terraform ]; then

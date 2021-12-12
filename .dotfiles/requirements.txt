@@ -1,6 +1,0 @@
-powerline-status
-psutil
-pynvim
-ranger-fm
-six
-ueberzug
