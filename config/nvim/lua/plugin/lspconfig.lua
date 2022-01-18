@@ -113,7 +113,8 @@ require("lspconfig").yamlls.setup({
 	settings = {
 		yaml = {
 			schemas = {
-				["/home/pras/.c7n/schema.json"] = "*.c7n.{yaml,yml}",
+				-- ["/home/pras/.c7n/schema.json"] = "*.c7n.{yaml,yml}",
+				["https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json"] = "*/**/{handlers,tasks}/*.{yaml,yml}",
 			},
 		},
 	},

@@ -73,6 +73,7 @@ opt.statusline = "%F%m%r%h%w%=(%{&ff}/%Y) (line %l/%L, col %c)"
 -- Custom
 opt.completeopt = "menuone,noselect" -- completion options (for deoplete)
 opt.cursorline = true
+opt.ff = "unix"
 opt.foldenable = false
 opt.foldmethod = "indent"
 opt.formatoptions = "l"
