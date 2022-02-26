@@ -200,6 +200,8 @@ install_tmux_linux() {
 # setup .zshrc
 setup_zshrc() {
     pushd "$(dirname "$0")"
+    # powerlevel10k configuration
+    ln -sf "$(pwd)/zsh/p10k.zsh" "$HOME/.p10k.zsh"
     ln -sf "$(pwd)/zsh/zprofile" "$HOME/.zprofile"
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
         ln -sf "$(pwd)/zsh/zshrc.macos" $ZSHRC
