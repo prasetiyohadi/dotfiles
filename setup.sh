@@ -56,7 +56,7 @@ install_fzf_linux() {
 # setup fzf configuration
 setup_fzf() {
     pushd "$(dirname "$0")"
-    ln -sf $(pwd)/zsh/fzf.zsh $HOME/.fzf.zsh
+    ln -sf "$(pwd)/zsh/fzf.zsh" "$HOME/.fzf.zsh"
     popd
 }
 
@@ -94,7 +94,7 @@ install_nvim_linux() {
 # setup neovim configuration
 setup_nvim() {
     pushd "$(dirname "$0")"
-    ln -sf $(pwd)/config/nvim $HOME/.config/nvim
+    ln -sf "$(pwd)/config/nvim" "$HOME/.config/nvim"
     popd
 }
 
@@ -134,8 +134,10 @@ install_omz_plugin() {
 # install oh-my-zsh custom themes
 install_omz_theme() {
     pushd "$(dirname "$0")"
-    ln -sf $(pwd)/zsh/catalyst.zsh-theme $OMZ_PATH/custom/themes/catalyst.zsh-theme
+    ln -sf "$(pwd)/zsh/catalyst.zsh-theme" $OMZ_PATH/custom/themes/catalyst.zsh-theme
     popd
+    # install powerlevel10k
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 }
 
 # setup oh-my-zsh
@@ -172,6 +174,9 @@ setup_tmux_plugin_manager() {
 
 # setup tmux
 setup_tmux() {
+    pushd "$(dirname "$0")"
+    ln -sf "$(pwd)/tmux.conf" "$HOME/.tmux.conf"
+    popd
     setup_tmux_plugin_manager
 }
 
@@ -195,18 +200,18 @@ install_tmux_linux() {
 # setup .zshrc
 setup_zshrc() {
     pushd "$(dirname "$0")"
-    ln -sf $(pwd)/zsh/zprofile $HOME/.zprofile
+    ln -sf "$(pwd)/zsh/zprofile" "$HOME/.zprofile"
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
-        ln -sf $(pwd)/zsh/zshrc.macos $ZSHRC
+        ln -sf "$(pwd)/zsh/zshrc.macos" $ZSHRC
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
-            ln -sf $(pwd)/zsh/zshrc.debian $ZSHRC
+            ln -sf "$(pwd)/zsh/zshrc.debian" $ZSHRC
         elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
-            ln -sf $(pwd)/zsh/zshrc.redhat $ZSHRC
+            ln -sf "$(pwd)/zsh/zshrc.redhat" $ZSHRC
         fi
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
-            ln -sf $(pwd)/zsh/zshrc.raspbian $ZSHRC
+            ln -sf "$(pwd)/zsh/zshrc.raspbian" $ZSHRC
         fi
     fi
     popd
