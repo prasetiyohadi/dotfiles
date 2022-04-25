@@ -72,7 +72,7 @@ install_nvim_linux() {
         sudo apt-get purge -y vim-tiny vim-runtime vim-common
         # install neovim v0.5.0
         SRC=nvim.appimage
-        VER=0.6.0
+        VER=0.7.0
         URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
         wget -O /tmp/$SRC $URL
         wget -O /tmp/$SRC.sha256sum $URL.sha256sum
