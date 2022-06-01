@@ -103,19 +103,20 @@ require("lspconfig").pyright.setup({
 	end,
 })
 
--- YAML language server
-require("lspconfig").yamlls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	flags = {
-		debounce_text_changes = 150,
-	},
-	settings = {
-		yaml = {
-			schemas = {
-				-- ["/home/pras/.c7n/schema.json"] = "*.c7n.{yaml,yml}",
-				["https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json"] = "*/**/{handlers,tasks}/*.{yaml,yml}",
-			},
-		},
-	},
-})
+-- -- YAML language server
+-- require("lspconfig").yamlls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	flags = {
+-- 		debounce_text_changes = 150,
+-- 	},
+-- 	settings = {
+-- 		yaml = {
+-- 			schemas = {
+-- 				-- ["/home/pras/.c7n/schema.json"] = "*.c7n.{yaml,yml}",
+-- 				["https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json"] = "*/**/{handlers,tasks}/*.{yaml,yml}",
+-- 				["kubernetes"] = "*/**/kubernetes/*/**/*.{yaml,yml}",
+-- 			},
+-- 		},
+-- 	},
+-- })

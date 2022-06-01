@@ -1,8 +1,5 @@
-local execute = vim.api.nvim_command
+local b = vim.b
 
-execute([[
-  augroup vimrc-jsonc
-    autocmd!
-    autocmd BufRead,BufNewFile *.mycjson set filetype=jsonc
-  augroup END
-]])
+b["ale_fixers"] = { "prettier" }
+b["ale_linters"] = { "jq" }
+b["ale_javascript_prettier_options"] = { "--trailing-comma none" }

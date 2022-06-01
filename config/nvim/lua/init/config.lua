@@ -4,7 +4,7 @@ local opt = vim.opt
 
 ----- Basic Setup -----
 cmd("filetype plugin indent on")
-cmd("colorscheme gruvbox")
+cmd("colorscheme dracula")
 
 -- Encoding
 opt.encoding = "utf-8" -- set default encoding to UTF-8
