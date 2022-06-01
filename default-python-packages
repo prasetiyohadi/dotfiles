@@ -1,0 +1,10 @@
+ansible-core
+ara[server]
+azure-cli; python_version >= '3'
+neovim
+pynvim
+ranger-fm
+six
+ueberzug; python_version >= '3'
+wheel
+yamlfix
