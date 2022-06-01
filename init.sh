@@ -7,7 +7,7 @@ init() {
     TEMP=$(mktemp -d) && cd "$TEMP"
     wget https://github.com/prasetiyohadi/dotfiles/archive/refs/heads/$VERSION.zip
     unzip -q $VERSION.zip
-    cp -pr dotfiles-$VERSION/.[^.]* ~/
+    cp -pr dotfiles-$VERSION ~/.dotfiles
     cd && rm -fr "$TEMP"
 }
 

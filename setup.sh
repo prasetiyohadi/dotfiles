@@ -36,6 +36,12 @@ setup_asdf() {
             sudo dnf install -y libXext-devel
         fi
     fi
+    pushd "$(dirname "$0")"
+    ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
+    ln -frs "$(pwd)/default-npm-packages" "$HOME/.default-npm-packages"
+    ln -frs "$(pwd)/default-python-packages" "$HOME/.default-python-packages"
+    ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
+    popd
 }
 
 # install fzf in macos
@@ -56,7 +62,14 @@ install_fzf_linux() {
 # setup fzf configuration
 setup_fzf() {
     pushd "$(dirname "$0")"
-    ln -sf "$(pwd)/zsh/fzf.zsh" "$HOME/.fzf.zsh"
+    ln -frs "$(pwd)/zsh/fzf.zsh" "$HOME/.fzf.zsh"
+    popd
+}
+
+# setup git configuration
+setup_git() {
+    pushd "$(dirname "$0")"
+    ln -frs "$(pwd)/gitconfig" "$HOME/.gitconfig"
     popd
 }
 
@@ -94,7 +107,8 @@ install_nvim_linux() {
 # setup neovim configuration
 setup_nvim() {
     pushd "$(dirname "$0")"
-    ln -sf "$(pwd)/config/nvim" "$HOME/.config/nvim"
+    if [ -e "$HOME/.config/nvim" ]; then mv -f "$HOME/.config/nvim"{,-"$(date +%s)"}; fi
+    ln -frs "$(pwd)/config/nvim" "$HOME/.config/nvim"
     popd
 }
 
@@ -134,9 +148,10 @@ install_omz_plugin() {
 # install oh-my-zsh custom themes
 install_omz_theme() {
     pushd "$(dirname "$0")"
-    ln -sf "$(pwd)/zsh/catalyst.zsh-theme" $OMZ_PATH/custom/themes/catalyst.zsh-theme
+    ln -frs "$(pwd)/zsh/catalyst.zsh-theme" $OMZ_PATH/custom/themes/catalyst.zsh-theme
     popd
     # install powerlevel10k
+    rm -fr "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 }
 
@@ -175,7 +190,7 @@ setup_tmux_plugin_manager() {
 # setup tmux
 setup_tmux() {
     pushd "$(dirname "$0")"
-    ln -sf "$(pwd)/tmux.conf" "$HOME/.tmux.conf"
+    ln -frs "$(pwd)/tmux.conf" "$HOME/.tmux.conf"
     popd
     setup_tmux_plugin_manager
 }
@@ -197,23 +212,31 @@ install_tmux_linux() {
     fi
 }
 
+# setup yamllint configuration
+setup_yamllint() {
+    pushd "$(dirname "$0")"
+    if [ -e "$HOME/.config/yamllint" ]; then mv -f "$HOME/.config/yamllint"{,-"$(date +%s)"}; fi
+    ln -frs "$(pwd)/config/yamllint" "$HOME/.config/yamllint"
+    popd
+}
+
 # setup .zshrc
 setup_zshrc() {
     pushd "$(dirname "$0")"
     # powerlevel10k configuration
-    ln -sf "$(pwd)/zsh/p10k.zsh" "$HOME/.p10k.zsh"
-    ln -sf "$(pwd)/zsh/zprofile" "$HOME/.zprofile"
+    ln -frs "$(pwd)/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+    ln -frs "$(pwd)/zsh/zprofile" "$HOME/.zprofile"
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
-        ln -sf "$(pwd)/zsh/zshrc.macos" $ZSHRC
+        ln -frs "$(pwd)/zsh/zshrc.macos" $ZSHRC
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
-            ln -sf "$(pwd)/zsh/zshrc.debian" $ZSHRC
+            ln -frs "$(pwd)/zsh/zshrc.debian" $ZSHRC
         elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
-            ln -sf "$(pwd)/zsh/zshrc.redhat" $ZSHRC
+            ln -frs "$(pwd)/zsh/zshrc.redhat" $ZSHRC
         fi
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
         if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ]; then
-            ln -sf "$(pwd)/zsh/zshrc.raspbian" $ZSHRC
+            ln -frs "$(pwd)/zsh/zshrc.raspbian" $ZSHRC
         fi
     fi
     popd
@@ -260,9 +283,11 @@ main() {
     fi
     setup_asdf
     setup_fzf
+    setup_git
     setup_nvim
     setup_omz
     setup_tmux
+    setup_yamllint
     setup_zshrc
 }
 
