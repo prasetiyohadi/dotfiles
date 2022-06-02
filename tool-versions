@@ -32,3 +32,8 @@ grpcurl 1.8.6
 tilt 0.27.0
 terraform-docs 0.16.0
 terraform-validator 3.1.3
+github-cli 2.11.3
+k6 0.38.3
+crystal 1.4.1
+rust 1.61.0
+rust-analyzer 2022-05-30

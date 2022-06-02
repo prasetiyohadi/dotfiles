@@ -1,5 +1,5 @@
 ansible-core
-ara[server]
+ara[server]; python_version >= '3'
 azure-cli; python_version >= '3'
 neovim
 pynvim
@@ -7,4 +7,4 @@ ranger-fm
 six
 ueberzug; python_version >= '3'
 wheel
-yamlfix
+yamlfix; python_version >= '3'
