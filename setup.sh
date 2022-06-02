@@ -46,6 +46,7 @@ setup_asdf() {
     ln -frs "$(pwd)/default-rust-packages" "$HOME/.default-rust-packages"
     ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
     popd
+    while read -r plugin; do asdf plugin add "$(echo "$plugin" | awk '{print $1}')"; done <"$HOME/.tool-versions"
     asdf install
 }
 
