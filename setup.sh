@@ -17,6 +17,7 @@ ZSHRC=~/.zshrc
 
 # setup asdf
 setup_asdf() {
+    VER=0.10.1
     if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
         echo "Add ASDF prerequisites for macos"
     elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
@@ -26,7 +27,7 @@ setup_asdf() {
             sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
                 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
                 libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
-                libffi-dev liblzma-dev
+                libffi-dev liblzma-dev dirmngr gpg gawk autoconf gettext libcurl4-openssl-dev
         elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
             # fedora 22 and above
             sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
@@ -36,12 +37,16 @@ setup_asdf() {
             sudo dnf install -y libXext-devel
         fi
     fi
+    if [ -e "$HOME/.asdf" ]; then mv -f "$HOME/.asdf"{,-"$(date +%s)"}; fi
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch "v$VER"
     pushd "$(dirname "$0")"
     ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
     ln -frs "$(pwd)/default-npm-packages" "$HOME/.default-npm-packages"
     ln -frs "$(pwd)/default-python-packages" "$HOME/.default-python-packages"
+    ln -frs "$(pwd)/default-rust-packages" "$HOME/.default-rust-packages"
     ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
     popd
+    asdf install
 }
 
 # install fzf in macos
@@ -83,7 +88,7 @@ install_nvim_linux() {
     if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
         # remove vim
         sudo apt-get purge -y vim-tiny vim-runtime vim-common
-        # install neovim v0.5.0
+        # install neovim v0.7.0
         SRC=nvim.appimage
         VER=0.7.0
         URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
