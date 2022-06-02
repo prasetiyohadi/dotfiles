@@ -17,3 +17,19 @@
 	name = Prasetiyo Hadi Purwoko
 [include]
 	path = ~/.custom.gitconfig
+
+# Add the following to your .gitconfig to use difftastic as your difftool.
+[diff]
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+
+	cmd = difft "$LOCAL" "$REMOTE"
+# Use a pager for large output, just like other git commands.
+[pager]
+	difftool = true
+
+# `git dft` is less to type than `git difftool`.
+[alias]
+	dft = difftool
