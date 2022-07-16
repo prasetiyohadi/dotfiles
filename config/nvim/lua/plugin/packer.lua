@@ -43,7 +43,7 @@ return require("packer").startup(function()
 	use("sbdchd/neoformat")
 	use("glepnir/lspsaga.nvim")
 	use("ray-x/lsp_signature.nvim")
-	-- use("github/copilot.vim")
+	use("github/copilot.vim")
 
 	-- Lazy loading:
 	-- Load on specific commands
