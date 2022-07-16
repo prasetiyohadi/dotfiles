@@ -94,6 +94,9 @@ alias dex='docker exec'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
 
+# Kubeconfig
+alias kckc='echo $KUBECONFIG'
+
 # Kubectx
 alias kx='kubectx'
 
@@ -300,6 +303,12 @@ body() {
     IFS= read -r header
     printf '%s\n' "$header"
     "$@"
+}
+
+# gch()
+# fuzzy find through your git branches
+gch() {
+    git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
