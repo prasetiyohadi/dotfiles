@@ -97,8 +97,11 @@ alias drunit="docker run -d --entrypoint '' --init --rm"
 # Kubeconfig
 alias kckc='echo $KUBECONFIG'
 
-# Kubectx
-alias kx='kubectx'
+# Kubectl plugin: ctx
+alias kx='kubectl ctx'
+
+# Kubectl plugin: ns
+alias kn='kubectl ns'
 
 # Proxy
 PROXY_SRC=
