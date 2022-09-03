@@ -6,7 +6,7 @@ terraform 1.1.4
 terraform-ls 0.27.0
 shfmt 3.4.2
 helm 3.8.2
-k3d 5.1.0
+k3d 5.4.4
 helmfile 0.142.0
 direnv 2.30.3
 packer 1.7.10
