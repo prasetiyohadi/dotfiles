@@ -85,7 +85,11 @@ return require("packer").startup(function()
 	use({
 		"nvim-telescope/telescope.nvim",
 		config = conf("telescope"),
-		requires = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", run = "make" } },
+		requires = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+			"nvim-telescope/telescope-file-browser.nvim",
+		},
 	})
 	-- use({
 	-- 	"jistr/vim-nerdtree-tabs",

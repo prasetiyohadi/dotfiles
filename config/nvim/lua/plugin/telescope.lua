@@ -35,6 +35,19 @@ require("telescope").setup({
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			-- the default case_mode is "smart_case"
 		},
+		file_browser = {
+			theme = "ivy",
+			-- disables netrw and use telescope-file-browser in its place
+			hijack_netrw = true,
+			mappings = {
+				["i"] = {
+					-- your custom insert mode mappings
+				},
+				["n"] = {
+					-- your custom normal mode mappings
+				},
+			},
+		},
 	},
 	pickers = {
 		buffers = {
@@ -53,6 +66,7 @@ require("telescope").setup({
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
+require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzf")
 
 -- Mappings
@@ -83,7 +97,7 @@ map("n", "<leader>fh", '<cmd>lua require("telescope.builtin").help_tags()<cr>')
 map(
 	"n",
 	"<leader>fs",
-	'<cmd>lua require("telescope.builtin").file_browser(require("telescope.themes").get_dropdown({}))<cr>'
+	'<cmd>lua require("telescope").extensions.file_browser.file_browser(require("telescope.themes").get_dropdown({}))<cr>'
 )
 -- <leader>fr: registers
 map("n", "<leader>fr", '<cmd>lua require("telescope.builtin").registers()<cr>')
