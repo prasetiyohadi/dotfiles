@@ -50,3 +50,6 @@ stylua 0.14.0
 ripgrep 13.0.0
 rclone 1.59.0
 telepresence 2.7.1
+gomigrate 4.15.2
+dive 0.10.0
+infracost 0.10.11
