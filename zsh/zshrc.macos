@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
@@ -52,12 +59,12 @@ export UPDATE_ZSH_DAYS=7
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  history-substring-search
-  kubectl
-  rustup
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+    git
+    history-substring-search
+    kubectl
+    rustup
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 ) 
 bindkey '^ ' autosuggest-accept
 
@@ -121,20 +128,20 @@ export GL=~/projects/src/gitlab.com
 
 # Google Cloud SDK
 if [ -d /usr/local/Caskroom/google-cloud-sdk ]; then
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-  source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # Golang
 if [ $(command -v go) ] && [ -d ~/go ]; then
-  export GOPATH=~/go
-  export PATH="$PATH:$GOPATH/bin"
+    export GOPATH=~/go
+    export PATH="$PATH:$GOPATH/bin"
 fi
 
 # GPG
 export GPG_TTY=$(tty)
 if [[ ! "$(echo $OSTYPE | tr -d '[:digit:][:punct:]')" == "darwin" ]]; then
-  [ -n "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    [ -n "$SSH_AUTH_SOCK" ] && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 fi
 
 # GRC
@@ -147,8 +154,8 @@ HAS_BREW="$(type "brew" &> /dev/null && echo true || echo false)"
 
 # Kotlin
 if [ -d ~/.local/kotlin ]; then
-  export KTROOT=~/.local/kotlin
-  export PATH="$PATH:$KTROOT/bin"
+    export KTROOT=~/.local/kotlin
+    export PATH="$PATH:$KTROOT/bin"
 fi
 
 # Language
@@ -163,9 +170,9 @@ export LC_ALL=en_US.UTF-8
 which kubectl > /dev/null && source <(kubectl completion zsh) || true
 
 # Minio client
-if [ -s ~/bin/mc ]; then
-  autoload -U +X bashcompinit && bashcompinit
-  complete -o nospace -C ~/bin/mc mc
+if [ -s $(command -v mc) ]; then
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C $(command -v mc) mc
 fi
 
 # NVM
@@ -203,9 +210,9 @@ fi
 
 # RVM
 if [ -s ~/.rvm/scripts/rvm ]; then
-  autoload bashcompinit && bashcompinit
-  export rvm_ignore_gemrc_issues=1
-  source ~/.rvm/scripts/rvm
+    autoload bashcompinit && bashcompinit
+    export rvm_ignore_gemrc_issues=1
+    source ~/.rvm/scripts/rvm
 fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

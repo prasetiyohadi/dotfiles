@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -225,9 +225,14 @@ export LC_ALL=en_US.UTF-8
 [[ -d "${HOME}/.linkerd2" ]] && export PATH="${PATH}:${HOME}/.linkerd2/bin"
 
 # Minio client
-if [ -s ~/bin/mc ]; then
+if [ $(command -v mc) ]; then
     autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C ~/bin/mc mc
+    complete -o nospace -C $(command -v mc) mc
+fi
+
+# Nerdctl
+if [ $(command -v nerdctl) ]; then
+    export CNI_PATH=~/.local/libexec/cni
 fi
 
 # Nim
@@ -283,9 +288,9 @@ fi
 [ -n "$ENABLE_STARSHIP" ] && which starship >/dev/null && eval "$(starship init zsh)"
 
 # Terraform
-if [ -s ~/bin/terraform ]; then
+if [ $(command -v terraform) ]; then
     autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C ~/bin/terraform terraform
+    complete -o nospace -C $(command -v terraform) terraform
 fi
 
 # Tmux
