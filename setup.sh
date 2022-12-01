@@ -49,8 +49,10 @@ setup_asdf() {
 	popd
 	# shellcheck disable=SC1091
 	. "$HOME/.asdf/asdf.sh"
-	while read -r plugin; do asdf plugin add "$(echo "$plugin" | awk '{print $1}')"; done <"$HOME/.tool-versions"
-	asdf install
+	while read -r plugin; do asdf plugin add "$(echo "$plugin" | awk '{print $1}')" || true; done <"$HOME/.tool-versions"
+	eval "asdf install $(grep python "$HOME/.tool-versions" | tr -d '\n')"
+	eval "asdf global $(grep python "$HOME/.tool-versions" | tr -d '\n')"
+	asdf install || true
 }
 
 # install fzf in macos
@@ -92,7 +94,7 @@ install_nvim_linux() {
 	if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
 		# remove vim
 		sudo apt-get purge -y vim-tiny vim-runtime vim-common
-		# install neovim v0.7.0
+		# install neovim v0.8.1
 		SRC=nvim.appimage
 		VER=0.8.1
 		URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
