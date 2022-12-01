@@ -51,6 +51,9 @@ g["no_buffers_menu"] = 1
 opt.gfn = "Monospace 10"
 opt.mousemodel = "popup"
 
+-- Disable mouse
+opt.mouse = ""
+
 -- Disable the blinking cursor.
 opt.gcr = "a:blinkon0"
 

@@ -17,7 +17,7 @@ ZSHRC=~/.zshrc
 
 # setup asdf
 setup_asdf() {
-	VER=0.10.1
+	VER=0.10.2
 	if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
 		echo "Add ASDF prerequisites for macos"
 	elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
@@ -37,8 +37,9 @@ setup_asdf() {
 			sudo dnf install -y libXext-devel
 		fi
 	fi
-	if [ -e "$HOME/.asdf" ]; then mv -f "$HOME/.asdf"{,-"$(date +%s)"}; fi
-	git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch "v$VER"
+	if [ ! -e "$HOME/.asdf" ]; then
+		git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch "v$VER"
+	fi
 	pushd "$(dirname "$0")"
 	ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
 	ln -frs "$(pwd)/default-cargo-crates" "$HOME/.default-cargo-crates"
@@ -46,6 +47,8 @@ setup_asdf() {
 	ln -frs "$(pwd)/default-python-packages" "$HOME/.default-python-packages"
 	ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
 	popd
+	# shellcheck disable=SC1091
+	. "$HOME/.asdf/asdf.sh"
 	while read -r plugin; do asdf plugin add "$(echo "$plugin" | awk '{print $1}')"; done <"$HOME/.tool-versions"
 	asdf install
 }
@@ -91,7 +94,7 @@ install_nvim_linux() {
 		sudo apt-get purge -y vim-tiny vim-runtime vim-common
 		# install neovim v0.7.0
 		SRC=nvim.appimage
-		VER=0.7.0
+		VER=0.8.1
 		URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
 		wget -O /tmp/$SRC $URL
 		wget -O /tmp/$SRC.sha256sum $URL.sha256sum

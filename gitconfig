@@ -10,6 +10,7 @@
 	ui = auto
 [init]
 	defaultBranch = main
+    templateDir = ~/.git-template
 [pull]
 	rebase = false
 [user]
