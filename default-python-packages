@@ -5,6 +5,5 @@ neovim
 pynvim
 ranger-fm
 six
-ueberzug; python_version >= '3'
 wheel
 yamlfix; python_version >= '3'
