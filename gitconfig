@@ -1,36 +1,42 @@
 [alias]
-	# List files which have changed since REVIEW_BASE
-	# (REVIEW_BASE defaults to 'master' in my ~/.zshrc)
-	files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+    # List files which have changed since REVIEW_BASE
+    # (REVIEW_BASE defaults to 'master' in my ~/.zshrc)
+    files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
 
-	# Same as above, but with a diff stat instead of just names
-	# (better for interactive use)
-	stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+    # Same as above, but with a diff stat instead of just names
+    # (better for interactive use)
+    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+
+    # `git dft` is less to type than `git difftool`.
+    dft = difftool
+
 [color]
-	ui = auto
-[init]
-	defaultBranch = main
-    templateDir = ~/.git-template
-[pull]
-	rebase = false
-[user]
-	email = pras@deuterion.net
-	name = Prasetiyo Hadi Purwoko
-[include]
-	path = ~/.custom.gitconfig
+    ui = auto
 
 # Add the following to your .gitconfig to use difftastic as your difftool.
 [diff]
-	tool = difftastic
-[difftool]
-	prompt = false
-[difftool "difftastic"]
+    tool = difftastic
 
-	cmd = difft "$LOCAL" "$REMOTE"
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[init]
+    defaultBranch = main
+    templateDir = ~/.git-template
+
 # Use a pager for large output, just like other git commands.
 [pager]
-	difftool = true
+    difftool = true
 
-# `git dft` is less to type than `git difftool`.
-[alias]
-	dft = difftool
+[pull]
+    rebase = false
+
+[user]
+    email = pras@deuterion.net
+    name = Prasetiyo Hadi Purwoko
+
+[include]
+    path = ~/.custom.gitconfig
