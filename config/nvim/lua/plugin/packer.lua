@@ -91,11 +91,13 @@ return require("packer").startup(function()
 			"nvim-telescope/telescope-file-browser.nvim",
 		},
 	})
+	-- Disable NerdTree, use Telescope instead
 	-- use({
 	-- 	"jistr/vim-nerdtree-tabs",
 	-- 	config = conf("nerdtree"),
 	-- 	requires = "scrooloose/nerdtree",
 	-- })
+	-- Disable Deoplete, use ALE instead
 	-- use({
 	-- 	"shougo/deoplete-lsp",
 	-- 	opt = true,
@@ -118,12 +120,15 @@ return require("packer").startup(function()
 	use({ "fatih/vim-go", run = ":GoInstallBinaries" })
 
 	-- Post-install/update hook with call of vimscript function with argument
-	-- use({ "junegunn/fzf.vim", requires = {
-	-- 	"junegunn/fzf",
-	-- 	run = function()
-	-- 		vim.fn["fzf#install"]()
-	-- 	end,
-	-- } })
+	use({
+		"junegunn/fzf.vim",
+		requires = {
+			"junegunn/fzf",
+			run = function()
+				vim.fn["fzf#install"]()
+			end,
+		},
+	})
 	use({
 		"ojroques/nvim-lspfuzzy",
 		run = function()
@@ -159,6 +164,8 @@ return require("packer").startup(function()
 		"hrsh7th/nvim-compe",
 		config = conf("compe"),
 	})
+	use("ptzz/lf.vim")
+	use("voldikss/fzf-floaterm")
 	use({
 		"voldikss/vim-floaterm",
 		config = conf("floaterm"),
