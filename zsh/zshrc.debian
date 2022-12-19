@@ -103,6 +103,9 @@ alias kx='kubectl ctx'
 # Kubectl plugin: ns
 alias kn='kubectl ns'
 
+# Lazygit
+# alias lg='lazygit'
+
 # Proxy
 PROXY_SRC=
 NO_PROXY_SRC='"localhost,127.0.0.1"'
@@ -313,10 +316,41 @@ body() {
     "$@"
 }
 
+# br()
+# custom broot function, need broot to be installed
+br() {
+    local cmd cmd_file code
+    cmd_file=$(mktemp)
+    if broot --outcmd "$cmd_file" "$@"
+    then
+        cmd=$(<"$cmd_file")
+        command rm -f "$cmd_file"
+        eval "$cmd"
+    else
+        code=$?
+        command rm -f "$cmd_file"
+        return "$code"
+    fi
+}
+
 # gch()
 # fuzzy find through your git branches
 gch() {
-    git checkout "$(git branch --all | fzf | tr -d '[:space:]')"
+    git checkout "$(git branch --all | fzf | tr -d '[:space:]\*')"
+}
+
+# lg()
+# change directory into that repo on exiting lazygit
+lg()
+{
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+
+    lazygit "$@"
+
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+        cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+        rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
