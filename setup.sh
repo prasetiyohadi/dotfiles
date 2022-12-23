@@ -30,7 +30,9 @@ setup_asdf() {
 				libffi-dev liblzma-dev dirmngr gpg gawk autoconf gettext libcurl4-openssl-dev
 			# install package dependencies
 			# crate: jless
-			sudo apt install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
+			sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
+			# pip: diagrams
+			sudo apt-get install -y graphviz
 		elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
 			# fedora 22 and above
 			sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
