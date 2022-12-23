@@ -1,6 +1,7 @@
 ansible-core
 ara[server]; python_version >= '3'
 azure-cli; python_version >= '3'
+diagrams
 neovim
 pynvim
 ranger-fm
