@@ -1,7 +1,7 @@
 local b = vim.b
 local execute = vim.api.nvim_command
 
-b["ale_fix_on_save"] = 0
+b["ale_fix_on_save"] = 1
 b["ale_fixers"] = { "yamlfix" }
 b["ale_linters"] = { "yamllint" }
 

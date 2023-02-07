@@ -139,6 +139,12 @@ return require("packer").startup(function()
 	use({ "Yggdroot/indentLine", config = conf("indentLine") })
 	use({ "pedrohdz/vim-yaml-folds", config = conf("vim-yaml-folds") })
 	use({ "vimwiki/vimwiki", config = conf("vimwiki") })
+	use({
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").add_default_mappings()
+		end,
+	})
 
 	-- Use specific branch, dependency and run lua file after load
 	use({
@@ -179,4 +185,20 @@ return require("packer").startup(function()
 
 	-- You can alias plugin names
 	use({ "dracula/vim", as = "dracula" })
+
+	-- Additional plugins
+	-- Plugin for [x]it! format
+	use({
+		"synaptiko/xit.nvim",
+		opt = true, -- for lazy-loading
+		ft = "xit", -- for lazy-loading
+		run = function(plugin)
+			plugin.config()
+			vim.cmd([[:TSInstall! xit]])
+		end,
+		config = function()
+			require("xit").setup()
+		end,
+		requires = { "nvim-treesitter/nvim-treesitter" },
+	})
 end)
