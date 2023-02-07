@@ -8,9 +8,7 @@ OS_TYPE=$(echo "$OS" | tr -d ".[:digit:]")
 OS_TYPE_DARWIN=darwin
 OS_TYPE_LINUX_AMD64=linux-gnu
 OS_TYPE_LINUX_ARM=linux-gnueabihf
-HAS_BREW="$(type "brew" &>/dev/null && echo true || echo false)"
 HAS_GIT="$(type "git" &>/dev/null && echo true || echo false)"
-APPS="fzf nvim tmux"
 OMZ_PATH=~/.oh-my-zsh
 TPM_PATH=~/.tmux/plugins/tpm
 ZSHRC=~/.zshrc
@@ -33,6 +31,8 @@ setup_asdf() {
 			sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
 			# pip: diagrams
 			sudo apt-get install -y graphviz
+			# tmux: byacc
+			sudo apt-get install -y byacc
 		elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
 			# fedora 22 and above
 			sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
@@ -48,6 +48,7 @@ setup_asdf() {
 	pushd "$(dirname "$0")"
 	ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
 	ln -frs "$(pwd)/default-cargo-crates" "$HOME/.default-cargo-crates"
+	ln -frs "$(pwd)/default-golang-pkgs" "$HOME/.default-golang-pkgs"
 	ln -frs "$(pwd)/default-npm-packages" "$HOME/.default-npm-packages"
 	ln -frs "$(pwd)/default-python-packages" "$HOME/.default-python-packages"
 	ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
@@ -58,21 +59,6 @@ setup_asdf() {
 	eval "asdf install $(grep python "$HOME/.tool-versions" | tr -d '\n')"
 	eval "asdf global $(grep python "$HOME/.tool-versions" | tr -d '\n')"
 	asdf install || true
-}
-
-# install fzf in macos
-install_fzf_darwin() {
-	brew install fzf
-}
-
-# install fzf in linux
-install_fzf_linux() {
-	if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
-		sudo apt-get update
-		sudo apt-get install -y fzf
-	elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
-		sudo dnf install -y fzf
-	fi
 }
 
 # setup fzf configuration
@@ -89,37 +75,6 @@ setup_git() {
 	popd
 }
 
-# install neovim in macos
-install_nvim_darwin() {
-	brew install neovim
-}
-
-# install neovim in linux
-install_nvim_linux() {
-	if [ "$OS_ID" == "debian" ] || [ "$OS_ID" == "ubuntu" ] || [ "$OS_ID" == "pop" ]; then
-		# remove vim
-		sudo apt-get purge -y vim-tiny vim-runtime vim-common
-		# install neovim v0.8.1
-		SRC=nvim.appimage
-		VER=0.8.1
-		URL=https://github.com/neovim/neovim/releases/download/v$VER/$SRC
-		wget -O /tmp/$SRC $URL
-		wget -O /tmp/$SRC.sha256sum $URL.sha256sum
-		echo "$(awk '{print $1}' /tmp/$SRC.sha256sum)" /tmp/$SRC >/tmp/$SRC.sum
-		sha256sum -c /tmp/$SRC.sum
-		chmod u+x /tmp/$SRC
-		sudo install -m 755 /tmp/$SRC /usr/bin/nvim
-		sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 900
-		sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 900
-		rm /tmp/$SRC.sha256sum /tmp/$SRC.sum
-	elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
-		# install neovim
-		sudo dnf install --assumeyes neovim
-		sudo alternatives --install /usr/bin/vi vi /usr/bin/nvim 900
-		sudo alternatives --install /usr/bin/vim vim /usr/bin/nvim 900
-	fi
-}
-
 # setup neovim configuration
 setup_nvim() {
 	pushd "$(dirname "$0")"
@@ -128,8 +83,8 @@ setup_nvim() {
 	popd
 }
 
-# install oh-my-zsh
-install_omz() {
+# clone oh-my-zsh
+clone_omz() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
 	else
@@ -141,8 +96,8 @@ install_omz() {
 	fi
 }
 
-# install oh-my-zsh custom plugins
-install_omz_plugin() {
+# clone oh-my-zsh custom plugins
+clone_omz_plugin() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
 	else
@@ -161,8 +116,8 @@ install_omz_plugin() {
 	fi
 }
 
-# install oh-my-zsh custom themes
-install_omz_theme() {
+# setup oh-my-zsh custom themes
+setup_omz_theme() {
 	pushd "$(dirname "$0")"
 	ln -frs "$(pwd)/zsh/catalyst.zsh-theme" $OMZ_PATH/custom/themes/catalyst.zsh-theme
 	popd
@@ -173,13 +128,13 @@ install_omz_theme() {
 
 # setup oh-my-zsh
 setup_omz() {
-	install_omz
-	install_omz_plugin
-	install_omz_theme
+	clone_omz
+	clone_omz_plugin
+	setup_omz_theme
 }
 
-# install tmux plugins manager
-install_tmux_plugin_manager() {
+# clone tmux plugins manager
+clone_tmux_plugin_manager() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
 	else
@@ -194,12 +149,12 @@ setup_tmux_plugin_manager() {
 		echo
 		if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 			rm -r $TPM_PATH
-			install_tmux_plugin_manager
+			clone_tmux_plugin_manager
 		else
 			echo "Tmux plugins manager installation cancelled."
 		fi
 	else
-		install_tmux_plugin_manager
+		clone_tmux_plugin_manager
 	fi
 }
 
@@ -209,23 +164,6 @@ setup_tmux() {
 	ln -frs "$(pwd)/tmux.conf" "$HOME/.tmux.conf"
 	popd
 	setup_tmux_plugin_manager
-}
-
-# install tmux and powerline in macos
-install_tmux_darwin() {
-	brew install python tmux
-	pip3 install powerline-status psutil
-}
-
-# install tmux and powerline in linux
-install_tmux_linux() {
-	if [ -f /etc/debian_version ]; then
-		sudo apt-get update
-		sudo apt-get install -y powerline tmux
-	elif [ -f /etc/redhat-release ]; then
-		sudo dnf install --assumeyes python3-pip tmux
-		sudo pip3 install powerline-status
-	fi
 }
 
 # setup yamllint configuration
@@ -258,45 +196,8 @@ setup_zshrc() {
 	popd
 }
 
-# installation for macos
-setup_darwin() {
-	for APP in $APPS; do
-		echo "This script will install $APP using brew."
-		if [ ! "$HAS_BREW" == "true" ]; then
-			echo "Homebrew must be installed!"
-		else
-			"install_${APP}_darwin"
-		fi
-	done
-}
-
-# installation for linux
-setup_linux() {
-	for APP in $APPS; do
-		echo "This script will install $APP."
-		HAS_APP="$(type "$APP" &>/dev/null && echo true || echo false)"
-		if [ "$HAS_APP" == "true" ]; then
-			read -p "$APP already exists. Replace[yn]? " -n 1 -r
-			echo
-			if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-				"install_${APP}_linux"
-			else
-				echo "$APP installation cancelled."
-			fi
-		else
-			"install_${APP}_linux"
-		fi
-	done
-}
-
 # main function
 main() {
-	if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
-		setup_darwin
-	elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ] ||
-		[ "$OS_TYPE" == "$OS_TYPE_LINUX_ARM" ]; then
-		setup_linux
-	fi
 	setup_asdf
 	setup_fzf
 	setup_git
