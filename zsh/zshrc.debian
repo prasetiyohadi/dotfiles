@@ -172,8 +172,8 @@ fi
 
 # Editor
 # Preferred editor for local and remote sessions
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh || true
@@ -186,6 +186,7 @@ if [ $(command -v rg) ] && [ $(command -v bat) ]; then
 fi
 
 # Gitconfig
+export GIT_SSH_COMMAND=ssh
 export REVIEW_BASE=origin/main
 
 # Github
@@ -249,11 +250,6 @@ export LC_ALL=en_US.UTF-8
 if [ $(command -v mc) ]; then
     autoload -U +X bashcompinit && bashcompinit
     complete -o nospace -C $(command -v mc) mc
-fi
-
-# Nerdctl
-if [ $(command -v nerdctl) ]; then
-    export CNI_PATH=~/.local/libexec/cni
 fi
 
 # Nim
