@@ -186,7 +186,7 @@ if [ $(command -v rg) ] && [ $(command -v bat) ]; then
 fi
 
 # Gitconfig
-export GIT_SSH_COMMAND=ssh
+export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:-ssh}
 export REVIEW_BASE=origin/main
 
 # Github

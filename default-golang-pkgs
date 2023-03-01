@@ -1,6 +1,3 @@
-// Bukactl
-go.bukalapak.io/buka20/devx/bukactl@latest
-
 // GRPC-UI
 github.com/fullstorydev/grpcui/cmd/grpcui@latest
 

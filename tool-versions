@@ -17,7 +17,7 @@ skaffold 1.35.2
 shellcheck 0.8.0
 yq 4.24.5
 jq 1.6
-gcloud 403.0.0
+gcloud 418.0.0
 helm-diff 3.6.0
 golang 1.18.10
 redis-cli 6.2.6
@@ -63,3 +63,5 @@ jqp 0.4.0
 neovim 0.8.3
 fzf 0.37.0
 tmux 3.3
+cilium-cli 0.12.13
+ytt 0.44.3

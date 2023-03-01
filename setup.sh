@@ -15,7 +15,7 @@ ZSHRC=~/.zshrc
 
 # setup asdf
 setup_asdf() {
-	VER=0.10.2
+	VER=0.11.1
 	if [ "$OS_TYPE" == "$OS_TYPE_DARWIN" ]; then
 		echo "Add ASDF prerequisites for macos"
 	elif [ "$OS_TYPE" == "$OS_TYPE_LINUX_AMD64" ]; then
@@ -33,6 +33,8 @@ setup_asdf() {
 			sudo apt-get install -y graphviz
 			# tmux: byacc
 			sudo apt-get install -y byacc
+			# neovim: luacheck
+			sudo apt-get install -y luarocks
 		elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
 			# fedora 22 and above
 			sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
@@ -49,6 +51,7 @@ setup_asdf() {
 	ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
 	ln -frs "$(pwd)/default-cargo-crates" "$HOME/.default-cargo-crates"
 	ln -frs "$(pwd)/default-golang-pkgs" "$HOME/.default-golang-pkgs"
+	ln -frs "$(pwd)/default-krew-plugins" "$HOME/.default-krew-plugins"
 	ln -frs "$(pwd)/default-npm-packages" "$HOME/.default-npm-packages"
 	ln -frs "$(pwd)/default-python-packages" "$HOME/.default-python-packages"
 	ln -frs "$(pwd)/tool-versions" "$HOME/.tool-versions"
