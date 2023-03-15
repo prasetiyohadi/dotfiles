@@ -65,3 +65,6 @@ fzf 0.37.0
 tmux 3.3
 cilium-cli 0.12.13
 ytt 0.44.3
+bottom 0.8.0
+zellij 0.35.2
+just 1.13.0
