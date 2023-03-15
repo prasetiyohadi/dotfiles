@@ -153,6 +153,10 @@ if [ -d "${HOME}/.asdf" ]; then
     autoload -Uz compinit && compinit
 fi
 
+# Atuin
+export ATUIN_NOBIND="true"
+command -v atuin >/dev/null && eval "$(atuin init zsh)"
+
 # Azure
 [[ -d "${HOME}/.local/lib/azure-cli" ]] && source "${HOME}/.local/lib/azure-cli/az.completion"
 
@@ -391,6 +395,11 @@ lg()
         rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
     fi
 }
+
+# Bind Keys
+
+# Atuin
+bindkey '^r' _atuin_search_widget
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

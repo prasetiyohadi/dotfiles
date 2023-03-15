@@ -1,7 +1,6 @@
-# Need to be updated everytime we update fzf version in asdf
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "$(find $HOME/.asdf/installs/fzf -iname key-bindings.zsh)" 2> /dev/null
+[[ $- == *i* ]] && source "$(find $HOME/.asdf/installs/fzf -iname completion.zsh)" 2> /dev/null
 
 # Key bindings
 # ------------
