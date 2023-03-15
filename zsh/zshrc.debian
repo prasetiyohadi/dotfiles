@@ -120,6 +120,9 @@ alias kn='kubectl ns'
 alias vi='nvim'
 alias vim='nvim'
 
+# Nerdctl
+alias docker='nerdctl'
+
 # Proxy
 PROXY_SRC=
 NO_PROXY_SRC='"localhost,127.0.0.1"'

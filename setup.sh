@@ -50,6 +50,7 @@ setup_asdf() {
 	pushd "$(dirname "$0")"
 	ln -frs "$(pwd)/asdfrc" "$HOME/.asdfrc"
 	ln -frs "$(pwd)/default-cargo-crates" "$HOME/.default-cargo-crates"
+	ln -frs "$(pwd)/default-cloud-sdk-components" "$HOME/.default-cloud-sdk-components"
 	ln -frs "$(pwd)/default-golang-pkgs" "$HOME/.default-golang-pkgs"
 	ln -frs "$(pwd)/default-krew-plugins" "$HOME/.default-krew-plugins"
 	ln -frs "$(pwd)/default-npm-packages" "$HOME/.default-npm-packages"
