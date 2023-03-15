@@ -33,8 +33,8 @@ setup_asdf() {
 			sudo apt-get install -y graphviz
 			# tmux: byacc
 			sudo apt-get install -y byacc
-			# neovim: luacheck
-			sudo apt-get install -y luarocks
+			# neovim: gdu luacheck
+			sudo apt-get install -y gdu luarocks
 		elif [ "$OS_ID" == "centos" ] || [ "$OS_ID" == "fedora" ]; then
 			# fedora 22 and above
 			sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
