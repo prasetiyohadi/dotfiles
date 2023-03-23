@@ -9,6 +9,7 @@ OS_TYPE_DARWIN=darwin
 OS_TYPE_LINUX_AMD64=linux-gnu
 OS_TYPE_LINUX_ARM=linux-gnueabihf
 HAS_GIT="$(type "git" &>/dev/null && echo true || echo false)"
+KICKSTART_NVIM=~/.kickstart.nvim
 OMZ_PATH=~/.oh-my-zsh
 TPM_PATH=~/.tmux/plugins/tpm
 ZSHRC=~/.zshrc
@@ -84,16 +85,28 @@ setup_git() {
 
 # setup neovim configuration
 setup_nvim() {
-	pushd "$(dirname "$0")"
-	if [ -e "$HOME/.config/nvim" ]; then mv -f "$HOME/.config/nvim"{,-"$(date +%s)"}; fi
-	ln -frs "$(pwd)/config/nvim" "$HOME/.config/nvim"
-	popd
+	if [ -e "$HOME/.config/nvim" ]; then
+		mv -f "$HOME/.config/nvim"{,-"$(date +%s)"}
+		mv -f "$HOME/.local/share/nvim"{,-"$(date +%s)"}
+	fi
+	if [ ! "$HAS_GIT" == "true" ]; then
+		echo "Git must be installed!"
+		exit 1
+	else
+		if [ -d $KICKSTART_NVIM ]; then
+			(cd $KICKSTART_NVIM && git pull)
+		else
+			git clone --depth 1 https://github.com/prasetiyohadi/kickstart.nvim --branch v1 $KICKSTART_NVIM
+		fi
+	fi
+	ln -frs $KICKSTART_NVIM "$HOME/.config/nvim"
 }
 
 # clone oh-my-zsh
 clone_omz() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
+		exit 1
 	else
 		if [ -d $OMZ_PATH ]; then
 			(cd $OMZ_PATH && git pull)
@@ -107,6 +120,7 @@ clone_omz() {
 clone_omz_plugin() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
+		exit 1
 	else
 		if [ -d $OMZ_PATH/custom/plugins/zsh-autosuggestions ]; then
 			(cd $OMZ_PATH/custom/plugins/zsh-autosuggestions && git pull)
@@ -144,6 +158,7 @@ setup_omz() {
 clone_tmux_plugin_manager() {
 	if [ ! "$HAS_GIT" == "true" ]; then
 		echo "Git must be installed!"
+		exit 1
 	else
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	fi
