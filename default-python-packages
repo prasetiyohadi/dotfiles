@@ -11,3 +11,4 @@ six
 tmuxp
 wheel
 yamlfix; python_version >= '3'
+yamllint; python_version >= '3'
