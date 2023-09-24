@@ -4,8 +4,10 @@ azure-cli; python_version >= '3'
 diagrams
 diffoscope
 jc
+kube-hunter; python_version >= '3'
 neovim
 pynvim
+python-hcl2; python_version >= '3'
 ranger-fm
 six
 tmuxp
