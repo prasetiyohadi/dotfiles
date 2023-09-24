@@ -38,7 +38,7 @@ crystal 1.4.1
 rust 1.67.0
 rust-analyzer 2022-05-30
 tflint 0.41.0
-conftest v0.32.1
+conftest 0.45.0
 awscli 2.7.6
 opa 0.41.0
 krew 0.4.3
