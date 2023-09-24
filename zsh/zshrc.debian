@@ -120,9 +120,6 @@ alias kn='kubectl ns'
 alias vi='nvim'
 alias vim='nvim'
 
-# Nerdctl
-alias docker='nerdctl'
-
 # Proxy
 PROXY_SRC=
 NO_PROXY_SRC='"localhost,127.0.0.1"'
@@ -321,34 +318,35 @@ export DISABLE_AUTO_TITLE='true'
 
 # Yamlfix
 # See https://lyz-code.github.io/yamlfix/
-# Allow Duplicate Keys
-export YAMLFIX_ALLOW_DUPLICATE_KEYS="false" # default
-# Comments Min Spaces From Content¶
-export YAMLFIX_COMMENTS_MIN_SPACES_FROM_CONTENT="2" # default
-# Comments Require Starting Space
-export YAMLFIX_COMMENTS_REQUIRE_STARTING_SPACE="true"   # default
-# Comments Whitelines
-export YAMLFIX_COMMENTS_WHITELINES="1"  # default
-# Section Whitelines
-export YAMLFIX_SECTION_WHITELINES="0"   # default
-# Explicit Document Start
-export YAMLFIX_EXPLICIT_START="true"    # default
-# Sequence (List) Style
-export YAMLFIX_SEQUENCE_STYLE="block_style"
-# Indentation
-export YAMLFIX_INDENT_MAPPING="2"   # default
-export YAMLFIX_INDENT_OFFSET="2"    # default
-export YAMLFIX_INDENT_SEQUENCE="4"  # default
-# Line Length (Width)
-export YAMLFIX_LINE_LENGTH="100"
-# `None` Representation
-export YAMLFIX_NONE_REPRESENTATION=""   # default
-# Quote Basic Values
-export YAMLFIX_QUOTE_BASIC_VALUES="false"   # default
-# Quote Keys and Basic Values
-export YAMLFIX_QUOTE_KEYS_AND_BASIC_VALUES="false"  # default
-# Quote Representation
-export YAMLFIX_QUOTE_REPRESENTATION="'"     # default
+# Use pyproject.toml instead of setting global environment variables
+# # Allow Duplicate Keys
+# export YAMLFIX_ALLOW_DUPLICATE_KEYS="false" # default
+# # Comments Min Spaces From Content¶
+# export YAMLFIX_COMMENTS_MIN_SPACES_FROM_CONTENT="2" # default
+# # Comments Require Starting Space
+# export YAMLFIX_COMMENTS_REQUIRE_STARTING_SPACE="true"   # default
+# # Comments Whitelines
+# export YAMLFIX_COMMENTS_WHITELINES="1"  # default
+# # Section Whitelines
+# export YAMLFIX_SECTION_WHITELINES="0"   # default
+# # Explicit Document Start
+# export YAMLFIX_EXPLICIT_START="true"    # default
+# # Sequence (List) Style
+# export YAMLFIX_SEQUENCE_STYLE="block_style"
+# # Indentation
+# export YAMLFIX_INDENT_MAPPING="2"   # default
+# export YAMLFIX_INDENT_OFFSET="2"    # default
+# export YAMLFIX_INDENT_SEQUENCE="4"  # default
+# # Line Length (Width)
+# export YAMLFIX_LINE_LENGTH="100"
+# # `None` Representation
+# export YAMLFIX_NONE_REPRESENTATION=""   # default
+# # Quote Basic Values
+# export YAMLFIX_QUOTE_BASIC_VALUES="false"   # default
+# # Quote Keys and Basic Values
+# export YAMLFIX_QUOTE_KEYS_AND_BASIC_VALUES="false"  # default
+# # Quote Representation
+# export YAMLFIX_QUOTE_REPRESENTATION="'"     # default
 
 # Deduplicate PATH
 export -U PATH
