@@ -41,7 +41,6 @@ tflint 0.41.0
 conftest 0.45.0
 awscli 2.7.6
 opa 0.41.0
-krew 0.4.3
 pluto 5.9.0
 kpt v0.39.3
 tfsec 1.28.0
@@ -78,3 +77,5 @@ doctl 1.97.1
 goreleaser 1.19.2
 gomplate v3.11.5
 fx 24.1.0
+krew 0.4.4
+kubelogin 0.0.32
