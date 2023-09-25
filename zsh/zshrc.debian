@@ -240,7 +240,7 @@ if [ -d ~/.local/kotlin ]; then
 fi
 
 # Krew
-[[ -d "${HOME}/.krew/bin" ]] && export PATH="${PATH}:${HOME}/.krew/bin"
+[[ -d "${HOME}/.krew/bin" ]] && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Kubernetes
 command -v kubectl >/dev/null && source <(kubectl completion zsh) || true
