@@ -8,6 +8,7 @@ rules:
     min-spaces-from-content: 1
   document-start: disable
   indentation:
-    indent-sequences: consistent
+    indent-sequences: whatever
+    check-multi-line-strings: false
   line-length: disable
 # vim: ft=yaml :
