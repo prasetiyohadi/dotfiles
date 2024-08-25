@@ -1,10 +1,22 @@
 ansible-core
 ara[server]; python_version >= '3'
 azure-cli; python_version >= '3'
+datasette
 diagrams
+diffoscope
+gorilla-cli
+harlequin
+jc
+kube-hunter; python_version >= '3'
 neovim
+puncia
 pynvim
+pypipe-ppp
+python-hcl2; python_version >= '3'
 ranger-fm
 six
+ssh-audit
+tmuxp
 wheel
 yamlfix; python_version >= '3'
+yamllint; python_version >= '3'

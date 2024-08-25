@@ -1,7 +1,7 @@
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/usr/share/doc/fzf/examples/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "$(find $HOME/.asdf/installs/fzf -iname completion.zsh)" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/usr/share/doc/fzf/examples/key-bindings.zsh"
+source "$(find $HOME/.asdf/installs/fzf -iname key-bindings.zsh)"

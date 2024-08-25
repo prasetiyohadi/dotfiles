@@ -13,6 +13,9 @@
 [color]
     ui = auto
 
+[core]
+    pager = less -FX
+
 # Add the following to your .gitconfig to use difftastic as your difftool.
 [diff]
     tool = difftastic
@@ -35,7 +38,7 @@
     rebase = false
 
 [user]
-    email = pras@deuterion.net
+    email = prasetiyohadi92@gmail.com
     name = Prasetiyo Hadi Purwoko
 
 [include]
