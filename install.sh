@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Create local executable directory
+mkdir -p ~/.local/bin
+
 # nix: https://nix.dev/install-nix
 if [ $(nix-env --version 2>&1 >/dev/null) ]; then
 	echo "nix is already installed"
@@ -12,6 +15,9 @@ nix-channel --add https://nixos.org/channels/nixos-24.05
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 nix-channel --list
 nix-channel --update
+
+# atuin: https://docs.atuin.sh/guide/installation/#installing-the-binary
+nix-env -f '<nixpkgs>' -iA atuin
 
 # bat: https://github.com/sharkdp/bat?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA bat
@@ -40,8 +46,14 @@ nix-env -f '<nixpkgs>' -iA jq
 # kcl: https://www.kcl-lang.io/docs/user_docs/getting-started/install#from-nix-packages
 nix-env -f '<nixos-24.05>' -iA kcl-cli
 
+# nap: https://github.com/maaslalani/nap?tab=readme-ov-file#installation
+wget -qO - https://github.com/maaslalani/nap/releases/download/v0.1.1/nap_0.1.1_linux_amd64.tar.gz | tar -xzf - -C ~/.local/bin
+
 # nvim: https://github.com/neovim/neovim/blob/master/INSTALL.md#linux
 nix-env -f '<nixpkgs>' -iA neovim
+
+# pet: https://github.com/knqyf263/pet?tab=readme-ov-file#binary
+wget -qO - https://github.com/knqyf263/pet/releases/download/v0.9.0/pet_0.9.0_linux_amd64.tar.gz | tar -xzf - -C ~/.local/bin
 
 # rg: https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA ripgrep
