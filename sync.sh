@@ -3,9 +3,18 @@ set -euo pipefail
 
 rm -f ~/.zshrc
 
+# Populate secrets from `.envrc` file
+if [[ -f secrets.env ]]; then
+	eval "$(teller sh)"
+fi
+
+# Generate config file from template
+envsubst <.config/pet/config.toml.tpl >.config/pet/config.toml
+envsubst '$GIT_EMAIL,$GIT_NAME' <.gitconfig.tpl >.gitconfig
+
+chmod og-rwx .config/pet/config.toml
+
+# Create symlinks for the config files
 stow .
 
-echo "## Follow the instructions at https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions to enable Fira Code in VS Code" |
-	gum format
-
-echo '## Execute `source ~/.zshrc`.' | gum format
+echo '### Execute `source ~/.zshrc`.' | gum format

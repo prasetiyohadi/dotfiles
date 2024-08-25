@@ -1,0 +1,11 @@
+# Ignore environment files
+.env*
+!.envrc.sample
+
+# Ignore secrets file
+secrets.env
+!secrets.env.sample
+
+# Ignore generated config files
+.config/pet/config.toml
+.gitconfig

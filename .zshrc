@@ -3,12 +3,12 @@ autoload -Uz compinit
 compinit
 
 # Environment variables
-export GIT_SSH_COMMAND='ssh -F ~/.ssh/git-proxy'
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Completions
 eval "$(atuin init zsh)"
+eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init --cmd cd zsh)"
@@ -66,6 +66,9 @@ export VISUAL=nvim
 
 # Git
 LANG=en_US.UTF-8
+
+# Glibc-locales: https://github.com/NixOS/nix/issues/599
+export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
 
 # Gitconfig
 export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:-ssh}

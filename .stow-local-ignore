@@ -1,4 +1,7 @@
+.*.bak
+.*.tpl
 .devbox
+.env.*
 .git
 .gitignore
 .teller.yml
@@ -6,6 +9,6 @@ devbox.*
 gcloud
 install.sh
 README.md
-shell.nix
+secrets.*
 sync.sh
 TODO.md

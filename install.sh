@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Create local executable directory
+mkdir -p ~/.local/bin
+
 # nix: https://nix.dev/install-nix
 if [ $(nix-env --version 2>&1 >/dev/null) ]; then
 	echo "nix is already installed"
@@ -13,11 +16,17 @@ nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 nix-channel --list
 nix-channel --update
 
+# atuin: https://docs.atuin.sh/guide/installation/#installing-the-binary
+nix-env -f '<nixpkgs>' -iA atuin
+
 # bat: https://github.com/sharkdp/bat?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA bat
 
 # devbox: https://www.jetify.com/devbox/docs/installing_devbox/
 curl -fsSL https://get.jetify.com/devbox | bash
+
+# direnv: https://direnv.net/docs/installation.html
+nix-env -f '<nixpkgs>' -iA direnv
 
 # eza: https://github.com/eza-community/eza/blob/main/INSTALL.md
 nix-env -f '<nixpkgs>' -iA eza
@@ -28,6 +37,9 @@ nix-env -f '<nixpkgs>' -iA fzf
 # gh: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 nix-env -f '<nixpkgs>' -iA gh
 
+# glibc-locales
+nix-env -f '<nixpkgs>' -iA glibcLocales
+
 # gum: https://github.com/charmbracelet/gum?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA gum
 
@@ -37,8 +49,14 @@ nix-env -f '<nixpkgs>' -iA jq
 # kcl: https://www.kcl-lang.io/docs/user_docs/getting-started/install#from-nix-packages
 nix-env -f '<nixos-24.05>' -iA kcl-cli
 
+# nap: https://github.com/maaslalani/nap?tab=readme-ov-file#installation
+wget -qO - https://github.com/maaslalani/nap/releases/download/v0.1.1/nap_0.1.1_linux_amd64.tar.gz | tar -xzf - -C ~/.local/bin
+
 # nvim: https://github.com/neovim/neovim/blob/master/INSTALL.md#linux
 nix-env -f '<nixpkgs>' -iA neovim
+
+# pet: https://github.com/knqyf263/pet?tab=readme-ov-file#binary
+wget -qO - https://github.com/knqyf263/pet/releases/download/v0.9.0/pet_0.9.0_linux_amd64.tar.gz | tar -xzf - -C ~/.local/bin
 
 # rg: https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA ripgrep
