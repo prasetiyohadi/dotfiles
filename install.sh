@@ -28,6 +28,9 @@ nix-env -f '<nixpkgs>' -iA fzf
 # gh: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 nix-env -f '<nixpkgs>' -iA gh
 
+# glibc-locales
+nix-env -f '<nixpkgs>' -iA glibcLocales
+
 # gum: https://github.com/charmbracelet/gum?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA gum
 

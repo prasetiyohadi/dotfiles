@@ -1,5 +1,9 @@
+.*.bak
+.config/pet/config.toml.tpl
 .devbox
+.env.*
 .git
+.gitconfig.tpl
 .gitignore
 .teller.yml
 devbox.*
