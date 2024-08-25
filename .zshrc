@@ -8,6 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Completions
 eval "$(atuin init zsh)"
+eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init --cmd cd zsh)"

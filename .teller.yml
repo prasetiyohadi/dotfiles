@@ -3,4 +3,4 @@ providers:
     kind: dotenv
     maps:
     - id: ''
-      path: .envrc
+      path: secrets.env

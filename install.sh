@@ -25,6 +25,9 @@ nix-env -f '<nixpkgs>' -iA bat
 # devbox: https://www.jetify.com/devbox/docs/installing_devbox/
 curl -fsSL https://get.jetify.com/devbox | bash
 
+# direnv: https://direnv.net/docs/installation.html
+nix-env -f '<nixpkgs>' -iA direnv
+
 # eza: https://github.com/eza-community/eza/blob/main/INSTALL.md
 nix-env -f '<nixpkgs>' -iA eza
 

@@ -4,7 +4,7 @@ set -euo pipefail
 rm -f ~/.zshrc
 
 # Populate secrets from `.envrc` file
-if [[ -f .envrc ]]; then
+if [[ -f secrets.env ]]; then
 	eval "$(teller sh)"
 fi
 
