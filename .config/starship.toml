@@ -1,0 +1,94 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+format = 'on [$symbol($subscription)]($style) '
+
+[battery]
+disabled = true
+
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[✗](bold red) '
+vimcmd_symbol = "[❮](green)"
+
+[cmd_duration]
+disabled = false
+format = "underwent [$duration]($style)"
+min_time = 5000
+style = "yellow"
+
+[directory]
+style = "blue"
+truncate_to_repo = true
+
+[docker_context]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[git_branch]
+format = "[$branch]($style)"
+ignore_branches = ['master', 'main']
+style = "bright-black"
+
+[git_status]
+disabled = false
+conflicted = '🏳'
+ahead = '🏎💨'
+behind = '😰'
+diverged = '😵'
+up_to_date = ''
+untracked = '🤷'
+stashed = "≡"
+modified = '📝'
+staged = '[++\($count\)](green)'
+renamed = '👅'
+deleted = '🗑'
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[golang]
+disabled = true
+
+[hostname]
+disabled = true
+
+[kubernetes]
+disabled = false
+
+[nix_shell]
+disabled = false
+format = 'via [$symbol$state](bold blue) '
+impure_msg = 'devbox'
+
+[package]
+disabled = true
+
+[php]
+disabled = true
+
+[python]
+disabled = true
+format = "[$virtualenv]($style) "
+style = "bright-black"
+
+[ruby]
+disabled = true
+
+[sudo]
+disabled = false
+
+[terraform]
+disabled = true
+
+[username]
+disabled = true

@@ -1,0 +1,11 @@
+.devbox
+.git
+.gitignore
+.teller.yml
+devbox.*
+gcloud
+install.sh
+README.md
+shell.nix
+sync.sh
+TODO.md
