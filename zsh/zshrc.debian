@@ -52,9 +52,11 @@ export UPDATE_ZSH_DAYS=7
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    asdf
     git
     history-substring-search
     kubectl
+    nix-shell
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -65,12 +67,13 @@ source $ZSH/oh-my-zsh.sh
 # Direnv
 # Hook direnv into your shell.
 # Need to be put before Powerlevel10k instant prompt to avoid warning
-if [[ $(command -v asdf >/dev/null) ]]; then
-    command -v direnv >/dev/null && eval "$(asdf direnv hook zsh)"
-    direnv() { asdf exec direnv "$@"; }
-else
-    command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-fi
+# if [[ $(command -v asdf >/dev/null) ]]; then
+#     command -v direnv >/dev/null && eval "$(asdf direnv hook zsh)"
+#     direnv() { asdf exec direnv "$@"; }
+# else
+#     command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+# fi
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -157,15 +160,6 @@ alias '?'='which'
 
 # Ansible
 export ANSIBLE_NOCOWS=1
-
-# asdf
-if [ -d "${HOME}/.asdf" ]; then
-    source "${HOME}/.asdf/asdf.sh"
-    # append completions to fpath
-    fpath=(${ASDF_DIR}/completions $fpath)
-    # initialise completions with ZSH's compinit
-    autoload -Uz compinit && compinit
-fi
 
 # Atuin
 export ATUIN_NOBIND="true"
@@ -261,8 +255,8 @@ command -v kubectl >/dev/null && source <(kubectl completion zsh) || true
 
 # Language
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
 
 # Linkerd
 [[ -d "${HOME}/.linkerd2" ]] && export PATH="${PATH}:${HOME}/.linkerd2/bin"
