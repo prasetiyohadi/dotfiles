@@ -2,5 +2,5 @@ providers:
   dotenv_1:
     kind: dotenv
     maps:
-    - id: 'pet_gh_gist_id'
+    - id: ''
       path: .envrc
