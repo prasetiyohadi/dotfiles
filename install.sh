@@ -57,6 +57,8 @@ nix-env -f '<nixpkgs>' -iA neovim
 
 # pet: https://github.com/knqyf263/pet?tab=readme-ov-file#binary
 wget -qO - https://github.com/knqyf263/pet/releases/download/v0.9.0/pet_0.9.0_linux_amd64.tar.gz | tar -xzf - -C ~/.local/bin
+mkdir -p ~/.config/pet
+touch ~/.config/pet/snippet.toml
 
 # rg: https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation
 nix-env -f '<nixpkgs>' -iA ripgrep
