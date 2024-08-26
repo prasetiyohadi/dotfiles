@@ -5,7 +5,7 @@ set -euo pipefail
 mkdir -p ~/.local/bin
 
 # nix: https://nix.dev/install-nix
-if [ $(nix-env --version 2>&1 >/dev/null) ]; then
+if $(nix-env --version 2>&1 >/dev/null); then
 	echo "nix is already installed"
 else
 	curl -L https://nixos.org/nix/install | sh -s -- --daemon
