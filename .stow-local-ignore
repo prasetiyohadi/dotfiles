@@ -8,6 +8,7 @@
 devbox.*
 gcloud
 install.sh
+pkg
 README.md
 secrets.*
 sync.sh
