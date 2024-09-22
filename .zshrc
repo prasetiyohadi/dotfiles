@@ -5,6 +5,7 @@ compinit
 # Environment variables
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.atuin/bin:$PATH"  # atuin
 
 # Completions
 eval "$(atuin init zsh)"
@@ -15,7 +16,7 @@ eval "$(zoxide init --cmd cd zsh)"
 source <(devbox completion zsh)
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
-source <(kubectl completion zsh)
+command -v kubectl 2>&1 >/dev/null && source <(kubectl completion zsh) || true
 
 # Aliases
 alias '?'='which'
@@ -26,9 +27,11 @@ alias dexit='docker exec -it'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
 alias fzfp='fzf --preview "bat --style numbers --color always {}"'
+alias gbD='git branch -D'
 alias gcb='git checkout -b'
 alias gcB='git checkout -B'
 alias gfa='git fetch --all --prune --jobs=10'
+alias ggpush='git push origin "$(git_current_branch)"'
 alias l='eza --long --all --git --group-directories-first'
 alias ls='eza --long --all --no-permissions --no-filesize --no-user --no-time --git'
 alias lst='eza --long --all --no-permissions --no-filesize --no-user --git --sort modified'
@@ -46,6 +49,7 @@ alias sp='steampipe'
 alias tv='tidy-viewer'
 alias vi='nvim'
 alias vim='nvim'
+alias zj='zellij'
 
 # Ansible
 export ANSIBLE_NOCOWS=1
@@ -278,6 +282,22 @@ function pet-select() {
 function git_main_branch() {
   def=`git remote show origin | sed -n '/HEAD branch/s/.*: //p'`
   echo $def
+}
+
+# Name: git_current_branch
+# Description: Outputs the name of the current branch
+# Usage example: git pull origin $(git_current_branch)
+# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
+# it's not a symbolic ref, but in a Git repo.
+function git_current_branch() {
+  local ref
+  ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ret=$?
+  if [[ $ret != 0 ]]; then
+    [[ $ret == 128 ]] && return  # no git repo.
+    ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+  fi
+  echo ${ref#refs/heads/}
 }
 
 ### End custom functions ###
