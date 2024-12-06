@@ -14,7 +14,7 @@ PREFIX=.
 # APP_PKG_SRC_BIN=
 # APP_PKG_SRC_COMP=
 # APP_PKG_SRC_MAN=
-# APP_PKG_TYPE=[APT | BIN | DEB | TARGZ]
+# APP_PKG_TYPE=[APT | BIN | DEB | TARGZ | TARXZ ]
 # APP_PKG_URL=
 
 if [ -f "$(dirname $0)/${APP}.env" ]; then
@@ -39,11 +39,11 @@ extract() {
 	APT | BIN | DEB)
 		echo "This type: ${APP_PKG_TYPE} does not need to be extracted."
 		;;
-	TARGZ)
+	TARGZ | TARXZ)
 		if [ -z "${APP_PKG_SRC}" ]; then
-			tar -C ${PREFIX} -xzf ${PREFIX}/${APP_PKG} ${APP_BIN}
+			tar -C ${PREFIX} -xf ${PREFIX}/${APP_PKG} ${APP_BIN}
 		else
-			tar -C ${PREFIX} -xzf ${PREFIX}/${APP_PKG}
+			tar -C ${PREFIX} -xf ${PREFIX}/${APP_PKG}
 		fi
 		;;
 	*)
@@ -70,7 +70,7 @@ install() {
 	DEB)
 		sudo dpkg -i ${PREFIX}/${APP_PKG}
 		;;
-	BIN | TARGZ)
+	BIN | TARGZ | TARXZ)
 		if [ "${PREFIX}/${APP_BIN}" != "${PREFIX}/" ] && [ -f "${PREFIX}/${APP_BIN}" ]; then
 			sudo install -D -m 755 ${PREFIX}/${APP_BIN} /usr/local/bin/${APP_BIN}
 		elif [ "${PREFIX}/${APP_PKG_SRC_BIN}" != "${PREFIX}/" ] && [ -d "${PREFIX}/${APP_PKG_SRC_BIN}" ]; then

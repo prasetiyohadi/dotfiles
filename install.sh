@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Install packages using pkg helper
-PACKAGES="bat eza fzf gh gum jq lazygit nap neovim pet ripgrep stow thefuck tmux tmuxp"
+PACKAGES="bat eza fzf rsync gh gum jq lazygit nap fuse3 neovim pet ripgrep stow thefuck tmux tmuxp yq zellij"
 
 for pkg in ${PACKAGES}; do
 	bash ./pkg/pkg.sh ${pkg}
@@ -54,3 +54,6 @@ nix-channel --update
 
 # glibc-locales: https://github.com/NixOS/nix/issues/599
 nix-env -f '<nixpkgs>' -iA glibcLocales
+
+# teller: https://github.com/tellerops/teller?tab=readme-ov-file
+nix-env -f '<nixpkgs>' -iA teller
