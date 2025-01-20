@@ -6,6 +6,7 @@ compinit
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.atuin/bin:$PATH"  # atuin
+export TERM=screen-256color
 
 # Completions
 eval "$(atuin init zsh)"
@@ -30,6 +31,7 @@ alias fzfp='fzf --preview "bat --style numbers --color always {}"'
 alias gbD='git branch -D'
 alias gcb='git checkout -b'
 alias gcB='git checkout -B'
+alias gdf='git dft'
 alias gfa='git fetch --all --prune --jobs=10'
 alias ggpush='git push origin "$(git_current_branch)"'
 alias l='eza --long --all --git --group-directories-first'
