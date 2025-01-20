@@ -1,3 +1,5 @@
+# You can look up popular git options here: https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+
 [alias]
     # List files which have changed since REVIEW_BASE
     # (REVIEW_BASE defaults to 'master' in my ~/.zshrc)
@@ -18,7 +20,7 @@
     packedGitWindowSize = 512m
     pager = less -FX
 
-[pack] 
+[pack]
     deltaCacheSize = 2047m
     packSizeLimit = 2047m
     windowMemory = 2047m
@@ -36,7 +38,7 @@
 
 [init]
     defaultBranch = main
-    templateDir = ~/.git-template
+    #templateDir = ~/.git-template
 
 # Use a pager for large output, just like other git commands.
 [pager]
