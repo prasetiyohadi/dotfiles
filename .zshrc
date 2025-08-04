@@ -1,14 +1,24 @@
+# zmodload zsh/zprof  # start profiling
 # Load compinit
 autoload -Uz compinit
-compinit
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+    compinit
+else
+    compinit -C
+fi
 
 # Environment variables
 export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.atuin/bin:$PATH"  # atuin
+export PATH="$HOME/.local/go/bin:$PATH" # go
+export PATH="$PATH:$HOME/.iximiuz/labctl/bin" # iximiuz: labctl
+export PATH="$PATH:$HOME/.arkade/bin" # arkade
+export PATH="$HOME/.opencode/bin:$PATH"  # opencode
 export TERM=screen-256color
 
 # Completions
+eval "$(devbox global shellenv)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
@@ -17,6 +27,7 @@ eval "$(zoxide init --cmd cd zsh)"
 source <(devbox completion zsh)
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
+source <(labctl completion zsh) # iximiuz: labctl completion
 command -v kubectl 2>&1 >/dev/null && source <(kubectl completion zsh) || true
 
 # Aliases
@@ -25,6 +36,7 @@ alias cat='bat --paging never --theme DarkNeon --style plain'
 alias cwd='pwd | awk -F/ "{print \$NF}"'
 alias dex='docker exec'
 alias dexit='docker exec -it'
+alias dag='dagger'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
 alias fzfp='fzf --preview "bat --style numbers --color always {}"'
@@ -34,11 +46,14 @@ alias gcB='git checkout -B'
 alias gdf='git dft'
 alias gfa='git fetch --all --prune --jobs=10'
 alias ggpush='git push origin "$(git_current_branch)"'
+alias gts='git tag -s'
 alias l='eza --long --all --git --group-directories-first'
 alias ls='eza --long --all --no-permissions --no-filesize --no-user --no-time --git'
 alias lst='eza --long --all --no-permissions --no-filesize --no-user --git --sort modified'
 alias kckc='echo $KUBECONFIG'
 alias kn='kubens'
+alias krun='kubectl run'
+alias kubi='kubie'
 alias kx='kubectx'
 alias napl='nap $(nap list | gum filter)'
 # alias pbcopy='xsel --clipboard --input'
@@ -162,11 +177,11 @@ export -U PATH # deduplicate PATH
 # ZSH plugins
 zinit light zsh-users/zsh-completions
 zinit light Aloxaf/fzf-tab
+# zinit light davidde/git
+# zinit light yzdann/kctl
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-history-substring-search
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light davidde/git
-zinit light yzdann/kctl
+zinit light zsh-users/zsh-syntax-highlighting # always last
 
 # ZSH style
 # disable sort when completing `git checkout`
@@ -303,3 +318,4 @@ function git_current_branch() {
 }
 
 ### End custom functions ###
+# zprof # end profiling
