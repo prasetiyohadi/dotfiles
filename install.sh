@@ -36,7 +36,7 @@ install_atuin() {
 install_dagger() {
   # dagger: https://docs.dagger.io/install/
   curl -fsSL https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh
-  dagger completion zsh | sudo tee /usr/local/share/zsh/site-functions/_dagger
+  "$HOME/.local/bin/dagger" completion zsh | sudo tee /usr/local/share/zsh/site-functions/_dagger
 }
 
 # devbox: https://www.jetify.com/devbox/docs/installing_devbox/
@@ -51,9 +51,19 @@ install_direnv() {
   curl -sfL https://direnv.net/install.sh | bash
 }
 
+# duckdb: https://duckdb.org/docs/installation/?version=stable&environment=cli&platform=linux&download_method=direct&architecture=x86_64
+install_duckdb() {
+  curl https://install.duckdb.org | sh
+}
+
 # kcl: https://www.kcl-lang.io/docs/user_docs/getting-started/install#from-nix-packages
 install_kcl() {
   wget -q https://kcl-lang.io/script/install-cli.sh -O - | /bin/bash
+}
+
+# labctl: https://github.com/iximiuz/labctl?tab=readme-ov-file#installation
+install_labctl() {
+  curl -sf https://labs.iximiuz.com/cli/install.sh | sh
 }
 
 # pet: https://github.com/knqyf263/pet?tab=readme-ov-file#binary
@@ -88,7 +98,7 @@ install_nix() {
     curl -L https://nixos.org/nix/install | sh -s -- --daemon
   fi
 
-  nix-channel --add https://nixos.org/channels/nixos-24.05
+  nix-channel --add https://nixos.org/channels/nixos-25.05
   nix-channel --add https://nixos.org/channels/nixpkgs-unstable
   nix-channel --list
   nix-channel --update
@@ -106,7 +116,9 @@ install_atuin
 install_dagger
 install_devbox
 install_direnv
+install_duckdb
 install_kcl
+install_labctl
 install_pet
 install_starship
 install_zinit
