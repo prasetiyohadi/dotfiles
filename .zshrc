@@ -15,7 +15,6 @@ export PATH="$HOME/.local/go/bin:$PATH" # go
 export PATH="$PATH:$HOME/.iximiuz/labctl/bin" # iximiuz: labctl
 export PATH="$PATH:$HOME/.arkade/bin" # arkade
 export PATH="$HOME/.opencode/bin:$PATH"  # opencode
-export TERM=screen-256color
 
 # Completions
 eval "$(devbox global shellenv)"
@@ -223,6 +222,8 @@ bindkey '^[[B' history-substring-search-down
 if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey "${terminfo[kcud1]}" history-substring-search-down
 fi
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[4~' end-of-line
 
 ### Start ZSH functions ###
 

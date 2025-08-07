@@ -5,7 +5,7 @@ rm -f ~/.zshrc
 
 # Populate secrets from `.envrc` file
 if [[ -f secrets.env ]]; then
-	eval "$(teller sh)"
+  eval "$(teller sh)"
 fi
 
 # Generate config file from template
