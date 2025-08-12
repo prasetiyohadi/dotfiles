@@ -33,8 +33,8 @@ install_atuin() {
   curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 }
 
+# dagger: https://docs.dagger.io/install/
 install_dagger() {
-  # dagger: https://docs.dagger.io/install/
   curl -fsSL https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh
   "$HOME/.local/bin/dagger" completion zsh | sudo tee /usr/local/share/zsh/site-functions/_dagger
 }
@@ -66,10 +66,20 @@ install_labctl() {
   curl -sf https://labs.iximiuz.com/cli/install.sh | sh
 }
 
+# opencode: https://opencode.ai/
+install_opencode() {
+  curl -fsSL https://opencode.ai/install | bash
+}
+
 # pet: https://github.com/knqyf263/pet?tab=readme-ov-file#binary
 install_pet() {
   mkdir -p ~/.config/pet
   touch ~/.config/pet/snippet.toml
+}
+
+# rustup: https://www.rust-lang.org/tools/install
+install_rustup() {
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
 # starship: https://starship.rs/guide/#%F0%9F%9A%80-installation
@@ -119,7 +129,9 @@ install_direnv
 install_duckdb
 install_kcl
 install_labctl
+install_opencode
 install_pet
+install_rustup
 install_starship
 install_zinit
 install_zoxide
