@@ -131,6 +131,9 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile
 zle -N pet-select
 stty -ixon
 
+# Rustup
+. "$HOME/.cargo/env"
+
 # Terraform
 if [ $(command -v terraform) ]; then
     autoload -U +X bashcompinit && bashcompinit
