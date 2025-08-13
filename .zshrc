@@ -38,6 +38,7 @@ alias dexit='docker exec -it'
 alias dag='dagger'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
+alias fk='fuck'
 alias fzfp='fzf --preview "bat --style numbers --color always {}"'
 alias gbD='git branch -D'
 alias gcb='git checkout -b'
