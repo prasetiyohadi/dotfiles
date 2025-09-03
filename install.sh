@@ -66,6 +66,13 @@ install_labctl() {
   curl -sf https://labs.iximiuz.com/cli/install.sh | sh
 }
 
+# nvm: https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+install_nvm() {
+  local version
+  version=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name"' | sed -E 's/.*"v?([^"]+)".*/\1/')
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$version/install.sh | bash
+}
+
 # opencode: https://opencode.ai/
 install_opencode() {
   curl -fsSL https://opencode.ai/install | bash
@@ -129,6 +136,7 @@ install_direnv
 install_duckdb
 install_kcl
 install_labctl
+install_nvm
 install_opencode
 install_pet
 install_rustup
