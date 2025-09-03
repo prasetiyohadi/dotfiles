@@ -50,7 +50,8 @@ I also use Arkade to install cloud native tools and applications.
 
 ## Setup
 
-To setup a new machine with my dotfiles, follow these steps:
+Currently, the setup process is only tested on Debian-based x86_64/amd64
+systems. To setup a new machine with my dotfiles, follow these steps:
 
 1. Clone this repository to your home directory:
 
