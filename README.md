@@ -104,7 +104,7 @@ manually symlink the file after running the sync script.
 - Fixing the Atuin config symlink issue:
 
     ```bash
-    ln -frs ~/dotfiles/atuin/config.toml ~/.config/atuin/config
+    ln -frs ~/dotfiles/atuin/config.toml ~/.config/atuin/config.toml
     ```
 
 ## Contributing
