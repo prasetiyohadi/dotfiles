@@ -17,13 +17,11 @@ export PATH="$PATH:$HOME/.arkade/bin" # arkade
 export PATH="$HOME/.opencode/bin:$PATH"  # opencode
 
 # Completions
-eval "$(devbox global shellenv)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
-eval "$(thefuck --alias)"
 eval "$(zoxide init --cmd cd zsh)"
-source <(devbox completion zsh)
+eval "$(mise activate zsh)"
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
 source <(labctl completion zsh) # iximiuz: labctl completion
@@ -38,7 +36,6 @@ alias dexit='docker exec -it'
 alias dag='dagger'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
-alias fk='thefuck'
 alias fzfp='fzf --preview "bat --style numbers --color always {}"'
 alias gbD='git branch -D'
 alias gcb='git checkout -b'
@@ -49,6 +46,7 @@ alias ggpush='git push origin "$(git_current_branch)"'
 alias gts='git tag -s'
 alias l='eza --long --all --git --group-directories-first'
 alias ls='eza --long --all --no-permissions --no-filesize --no-user --no-time --git'
+alias ls0='eza --all --no-permissions --no-filesize --no-user --no-time --git'
 alias lst='eza --long --all --no-permissions --no-filesize --no-user --git --sort modified'
 alias kckc='echo $KUBECONFIG'
 alias kn='kubens'
@@ -88,9 +86,6 @@ export VISUAL=nvim
 # Git
 LANG=en_US.UTF-8
 
-# Glibc-locales: https://github.com/NixOS/nix/issues/599
-export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
-
 # Gitconfig
 export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:-ssh}
 export REVIEW_BASE=origin/main
@@ -125,8 +120,8 @@ if [ $(command -v mc) ]; then
     complete -o nospace -C $(command -v mc) mc
 fi
 
-# Nix
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# Mise
+eval "$(/home/pras/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
