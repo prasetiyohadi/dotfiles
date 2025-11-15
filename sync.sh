@@ -3,9 +3,9 @@ set -euo pipefail
 
 rm -f ~/.zshrc
 
-# Populate secrets from `.envrc` file
+# Populate secrets
 if [[ -f secrets.env ]]; then
-  eval "$(teller sh)"
+  source secrets.env
 fi
 
 # Generate config file from template

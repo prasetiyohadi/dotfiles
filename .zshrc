@@ -21,7 +21,6 @@ eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
-eval "$(thefuck --alias)"
 eval "$(zoxide init --cmd cd zsh)"
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
@@ -37,7 +36,6 @@ alias dexit='docker exec -it'
 alias dag='dagger'
 alias drund='docker run -d --rm'
 alias drunit="docker run -d --entrypoint '' --init --rm"
-alias fk='thefuck'
 alias fzfp='fzf --preview "bat --style numbers --color always {}"'
 alias gbD='git branch -D'
 alias gcb='git checkout -b'
@@ -48,6 +46,7 @@ alias ggpush='git push origin "$(git_current_branch)"'
 alias gts='git tag -s'
 alias l='eza --long --all --git --group-directories-first'
 alias ls='eza --long --all --no-permissions --no-filesize --no-user --no-time --git'
+alias ls0='eza --all --no-permissions --no-filesize --no-user --no-time --git'
 alias lst='eza --long --all --no-permissions --no-filesize --no-user --git --sort modified'
 alias kckc='echo $KUBECONFIG'
 alias kn='kubens'
