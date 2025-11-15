@@ -21,11 +21,12 @@ These are the main packages I use in my setup:
 - Arkade: A simple CLI for downloading Kubernetes tools and apps.
 - Atuin: A modern shell history manager.
 - Bat: A cat clone with syntax highlighting and Git integration.
-- Devbox: A tool to manage development environments using Nix packages.
 - Direnv: An environment switcher for the shell.
 - Eza: A modern replacement for 'ls' written in Rust.
 - Fzf: A command-line fuzzy finder.
 - Git: Version control system to manage my dotfiles repository.
+- Mise: (pronounced "meez") or "mise-en-place" is a development environment
+  setup tool.
 - Nap: A tool to manage your notes and code snippets.
 - Neovim: My preferred text editor.
 - Pet: A command-line snippet manager.
@@ -43,10 +44,10 @@ I mainly use Neovim as my IDE, along with Tmux for terminal multiplexing. After
 installing Neovim, I use LazyVim as my configuration framework to enhance my
 Neovim experience.
 
-I use Devbox to manage my development environments, allowing me to easily
-switch available packages based on the project I'm working on. I can also
-install global packages that I use across all projects from the Nix ecosystem.
-I also use Arkade to install cloud native tools and applications.
+I use Mise to manage my development environments, allowing me to easily switch
+available packages based on the project I'm working on. I can also install
+global packages that I use across all projects from the multiple backends. I
+also use Arkade to install cloud native tools and applications.
 
 ## Setup
 

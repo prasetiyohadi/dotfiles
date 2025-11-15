@@ -36,6 +36,11 @@ install_dagger() {
   "$HOME/.local/bin/dagger" completion zsh | sudo tee /usr/local/share/zsh/site-functions/_dagger
 }
 
+# devbox: https://www.jetify.com/devbox/docs/installing_devbox/
+install_devbox() {
+  curl -fsSL https://get.jetify.com/devbox | bash
+}
+
 # direnv: https://direnv.net/docs/installation.html
 install_direnv() {
   mkdir -p "${HOME}/.local/bin"
@@ -46,18 +51,19 @@ install_direnv() {
 # docker:
 install_docker() {
   # Run the following command to uninstall all conflicting packages:
-  for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+  for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done || true
 
   # Add Docker's official GPG key:
   sudo apt-get update
   sudo apt-get install ca-certificates curl
   sudo install -m 0755 -d /etc/apt/keyrings
-  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  sudo curl -fsSL https://download.docker.com/linux/$(. /etc/os-release && echo "$ID")/gpg -o /etc/apt/keyrings/docker.asc
   sudo chmod a+r /etc/apt/keyrings/docker.asc
 
   # Add the repository to Apt sources:
   echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+    https://download.docker.com/linux/$(. /etc/os-release && echo "$ID") \
     $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" |
     sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
   sudo apt-get update
@@ -126,4 +132,26 @@ install_zinit() {
 # zoxide: https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
 install_zoxide() {
   curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+}
+
+# Install Nix
+
+install_nix() {
+  # nix: https://nix.dev/install-nix
+  if eval "nix-env --version 2>&1 >/dev/null"; then
+    echo "nix is already installed"
+  else
+    curl -L https://nixos.org/nix/install | sh -s -- --daemon
+  fi
+
+  nix-channel --add https://nixos.org/channels/nixos-25.05
+  nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+  nix-channel --list
+  nix-channel --update
+
+  # glibc-locales: https://github.com/NixOS/nix/issues/599
+  nix-env -f '<nixpkgs>' -iA glibcLocales
+
+  # teller: https://github.com/tellerops/teller?tab=readme-ov-file
+  nix-env -f '<nixpkgs>' -iA teller
 }

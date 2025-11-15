@@ -17,11 +17,11 @@ export PATH="$PATH:$HOME/.arkade/bin" # arkade
 export PATH="$HOME/.opencode/bin:$PATH"  # opencode
 
 # Completions
+eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(mise activate zsh)"
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
 source <(labctl completion zsh) # iximiuz: labctl completion
@@ -72,9 +72,6 @@ export ANSIBLE_NOCOWS=1
 # Atuin
 export ATUIN_NOBIND="true"
 
-# Devbox
-DEVBOX_NO_PROMPT=true
-
 # Difft
 export DFT_GRAPH_LIMIT=30000000
 
@@ -119,9 +116,6 @@ if [ $(command -v mc) ]; then
     autoload -U +X bashcompinit && bashcompinit
     complete -o nospace -C $(command -v mc) mc
 fi
-
-# Mise
-eval "$(/home/pras/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
