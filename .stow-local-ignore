@@ -1,11 +1,9 @@
 .*.bak
 .*.tpl
-.devbox
 .env.*
 .git
 .gitignore
 .teller.yml
-devbox.*
 gcloud
 install.sh
 pkg

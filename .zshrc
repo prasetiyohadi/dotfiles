@@ -17,13 +17,12 @@ export PATH="$PATH:$HOME/.arkade/bin" # arkade
 export PATH="$HOME/.opencode/bin:$PATH"  # opencode
 
 # Completions
-eval "$(devbox global shellenv)"
+eval "$(mise activate zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init --cmd cd zsh)"
-source <(devbox completion zsh)
 source <(docker completion zsh)
 source <(fzf --zsh) # set up fzf key bindings and fuzzy completion
 source <(labctl completion zsh) # iximiuz: labctl completion
@@ -74,9 +73,6 @@ export ANSIBLE_NOCOWS=1
 # Atuin
 export ATUIN_NOBIND="true"
 
-# Devbox
-DEVBOX_NO_PROMPT=true
-
 # Difft
 export DFT_GRAPH_LIMIT=30000000
 
@@ -87,9 +83,6 @@ export VISUAL=nvim
 
 # Git
 LANG=en_US.UTF-8
-
-# Glibc-locales: https://github.com/NixOS/nix/issues/599
-export LOCALE_ARCHIVE="$(nix-env --installed --no-name --out-path --query glibc-locales)/lib/locale/locale-archive"
 
 # Gitconfig
 export GIT_SSH_COMMAND=${GIT_SSH_COMMAND:-ssh}
@@ -124,9 +117,6 @@ if [ $(command -v mc) ]; then
     autoload -U +X bashcompinit && bashcompinit
     complete -o nospace -C $(command -v mc) mc
 fi
-
-# Nix
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

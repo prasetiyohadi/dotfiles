@@ -7,7 +7,6 @@ install_packages
 install_arkade
 install_atuin
 install_dagger
-# install_devbox
 install_direnv
 install_docker
 install_duckdb
@@ -21,4 +20,3 @@ install_rustup
 install_starship
 install_zinit
 install_zoxide
-# install_nix
