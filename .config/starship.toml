@@ -68,7 +68,6 @@ disabled = false
 [nix_shell]
 disabled = false
 format = 'via [$symbol$state](bold blue) '
-impure_msg = 'devbox'
 
 [package]
 disabled = true
