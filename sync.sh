@@ -14,6 +14,8 @@ envsubst '$GIT_EMAIL,$GIT_NAME' <.gitconfig.tpl >.gitconfig
 
 chmod og-rwx .config/pet/config.toml
 
+rm ~/.zshenv ~/.config/atuin/config.toml
+
 # Create symlinks for the config files
 stow .
 

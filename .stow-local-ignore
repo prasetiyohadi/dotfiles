@@ -4,8 +4,7 @@
 .git
 .gitignore
 .teller.yml
-gcloud
-install.sh
+install.*
 pkg
 README.md
 secrets.*
