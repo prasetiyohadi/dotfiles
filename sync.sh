@@ -10,11 +10,16 @@ fi
 
 # Generate config file from template
 envsubst <.config/pet/config.toml.tpl >.config/pet/config.toml
-envsubst '$GIT_EMAIL,$GIT_NAME' <.gitconfig.tpl >.gitconfig
+envsubst <.gitconfig.tpl >.gitconfig
 
 chmod og-rwx .config/pet/config.toml
 
-rm ~/.zshenv ~/.config/atuin/config.toml
+mv -v ~/.config/atuin/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
+mv -v ~/.config/mise/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
+mv -v ~/.config/pet/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
+mv -v ~/.gitconfig{,".bak-$(date +%Y%m%d-%H%M%S)"}
+mv -v ~/.tmux.conf{,".bak-$(date +%Y%m%d-%H%M%S)"}
+mv -v ~/.zshenv{,".bak-$(date +%Y%m%d-%H%M%S)"}
 
 # Create symlinks for the config files
 stow .
