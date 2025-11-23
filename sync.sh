@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-rm -f ~/.zshrc
-
 # Populate secrets
 if [[ -f secrets.env ]]; then
   source secrets.env
@@ -14,12 +12,14 @@ envsubst <.gitconfig.tpl >.gitconfig
 
 chmod og-rwx .config/pet/config.toml
 
-mv -v ~/.config/atuin/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
-mv -v ~/.config/mise/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
-mv -v ~/.config/pet/config.toml{,".bak-$(date +%Y%m%d-%H%M%S)"}
-mv -v ~/.gitconfig{,".bak-$(date +%Y%m%d-%H%M%S)"}
-mv -v ~/.tmux.conf{,".bak-$(date +%Y%m%d-%H%M%S)"}
-mv -v ~/.zshenv{,".bak-$(date +%Y%m%d-%H%M%S)"}
+CURRENT_DATE=$(date +%Y%m%d-%H%M%S)
+mv -v ~/.config/atuin/config.toml{,".bak-$CURRENT_DATE"}
+mv -v ~/.config/mise/config.toml{,".bak-$CURRENT_DATE"}
+mv -v ~/.config/pet/config.toml{,".bak-$CURRENT_DATE"}
+mv -v ~/.gitconfig{,".bak-$CURRENT_DATE"}
+mv -v ~/.tmux.conf{,".bak-$CURRENT_DATE"}
+mv -v ~/.zshenv{,".bak-$CURRENT_DATE"}
+mv -v ~/.zshrc{,".bak-$CURRENT_DATE"}
 
 # Create symlinks for the config files
 stow .
